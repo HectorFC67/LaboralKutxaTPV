@@ -17,14 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="144dp"
         android:gravity="center"
-        android:text="Resumen de Operación"
+        android:text="@string/next"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Resumen de Operación" />
 
     <!-- TARJETA PRINCIPAL -->
     <androidx.cardview.widget.CardView
@@ -58,17 +59,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Monto Inicial:"
+                    android:text="@string/next"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="Monto inicial:" />
 
                 <TextView
                     android:id="@+id/tvMontoInicial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100.00 €"
+                    android:text="@string/next"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="100.00 €" />
             </LinearLayout>
 
             <!-- DIVISOR -->
@@ -89,17 +92,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Descuento:"
+                    android:text="@string/next"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="Descuento:" />
 
                 <TextView
                     android:id="@+id/tvDescuento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10.00 €"
+                    android:text="@string/next"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="100.00 €" />
             </LinearLayout>
 
             <!-- DIVISOR -->
@@ -121,17 +126,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Monto Final:"
+                    android:text="@string/next"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Monto Final:" />
 
                 <TextView
                     android:id="@+id/tvMontoFinal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="90.00 €"
+                    android:text="@string/next"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    tools:text="90.00 €" />
             </LinearLayout>
 
         </LinearLayout>
@@ -142,11 +149,12 @@
         android:id="@+id/btnContinuar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continuar"
-        android:textAllCaps="false"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:text="@string/next"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Continuar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
