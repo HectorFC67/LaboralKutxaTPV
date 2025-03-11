@@ -27,6 +27,18 @@
         <!-- Agrega la Activity de realizar compra -->
         <activity android:name=".VentanaRealizarCompraActivity" />
 
+        <!-- Agrega la Activity de selección de método de pago -->
+        <activity android:name=".SeleccionMetodoPagoActivity" />
+
+        <!-- Agrega la Activity de monto final -->
+        <activity android:name=".VentanaMontoFinal" />
+        
+        <!-- Agrega la Activity de gestión de productos -->
+        <activity 
+            android:name=".GestionProductosActivity"
+            android:label="Gestión de Productos"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

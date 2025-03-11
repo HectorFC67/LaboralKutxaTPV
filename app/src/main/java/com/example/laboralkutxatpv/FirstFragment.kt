@@ -31,10 +31,10 @@ class FirstFragment : Fragment() {
             startActivity(intent)
         }
 
-
-        // Clientes Recientes
+        // Gestión de Productos (antes "Clientes Recientes")
         binding.buttonClientes.setOnClickListener {
-            Toast.makeText(requireContext(), "Gestionar Productos pulsado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), GestionProductosActivity::class.java)
+            startActivity(intent)
         }
 
         // Cupones Disponibles

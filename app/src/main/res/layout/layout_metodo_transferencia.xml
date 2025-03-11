@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Información de la cuenta bancaria (solo lectura) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Información para transferencia:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Banco: Laboral Kutxa"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IBAN: ES12 3456 7890 1234 5678 9012"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beneficiario: Laboral Kutxa TPV"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Campo para referencia de la transferencia -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilReferencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Referencia de la transferencia">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etReferencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Nota explicativa -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Indique esta referencia en el concepto de la transferencia para poder identificar su pago."
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout> 

@@ -6,4 +6,8 @@
   </style>
 
   <style name="Theme.LaboralKutxaTPV" parent="Base.Theme.LaboralKutxaTPV" />
+
+  <!-- Estilos para la AppBar -->
+  <style name="Theme.LaboralKutxaTPV.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="Theme.LaboralKutxaTPV.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

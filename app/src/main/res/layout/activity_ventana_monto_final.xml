@@ -144,17 +144,37 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- BOTÓN CONTINUAR -->
-    <Button
-        android:id="@+id/btnContinuar"
-        android:layout_width="wrap_content"
+    <!-- BOTONES INFERIORES -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
         android:layout_marginBottom="16dp"
-        android:text="@string/next"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Continuar" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- BOTÓN CANCELAR -->
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- BOTÓN CONTINUAR -->
+        <Button
+            android:id="@+id/btnContinuar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:layout_marginStart="8dp"
+            tools:text="Finalizar Compra" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

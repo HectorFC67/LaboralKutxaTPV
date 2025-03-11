@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Nombre del producto -->
+        <TextView
+            android:id="@+id/tvNombreProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Nombre del Producto"/>
+
+        <!-- Precio del producto -->
+        <TextView
+            android:id="@+id/tvPrecioProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNombreProducto"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:textColor="#006400"
+            android:text="59.99 €"/>
+
+        <!-- Stock del producto -->
+        <TextView
+            android:id="@+id/tvStockProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPrecioProducto"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:text="Stock: 10 unidades"/>
+
+        <!-- Botón de editar -->
+        <ImageButton
+            android:id="@+id/btnEditarProducto"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Editar producto"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="#555555"/>
+
+        <!-- Botón de eliminar -->
+        <ImageButton
+            android:id="@+id/btnEliminarProducto"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toStartOf="@id/btnEditarProducto"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Eliminar producto"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="#B22222"/>
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView> 

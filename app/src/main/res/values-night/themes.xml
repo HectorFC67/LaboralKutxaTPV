@@ -4,4 +4,8 @@
     <!-- Customize your dark theme here. -->
     <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
   </style>
+
+  <!-- Estilos para la AppBar en modo oscuro -->
+  <style name="Theme.LaboralKutxaTPV.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="Theme.LaboralKutxaTPV.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
 </resources>
