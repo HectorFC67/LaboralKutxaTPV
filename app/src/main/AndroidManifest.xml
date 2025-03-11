@@ -12,16 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LaboralKutxaTPV"
         tools:targetApi="31">
+
+        <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.LaboralKutxaTPV">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Agrega la Activity de realizar compra -->
+        <activity android:name=".VentanaRealizarCompraActivity" />
+
     </application>
 
 </manifest>

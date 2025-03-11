@@ -13,31 +13,31 @@
         android:padding="40dp">
 
         <Button
-            android:id="@+id/button_escanear"
+            android:id="@+id/buttonRealizarCompra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escanear Tarjeta"
+            android:text="Realizar Compra"
             android:layout_marginBottom="40dp" />
 
         <Button
             android:id="@+id/button_clientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Clientes Recientes"
+            android:text="Gestión de Productos"
             android:layout_marginBottom="40dp" />
 
         <Button
             android:id="@+id/button_cupones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cupones Disponibles"
+            android:text="Historial de Ventas"
             android:layout_marginBottom="40dp" />
 
         <Button
             android:id="@+id/button_historial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Historial de Ventas"
+            android:text="Proximamente..."
             android:layout_marginBottom="40dp" />
 
     </LinearLayout>

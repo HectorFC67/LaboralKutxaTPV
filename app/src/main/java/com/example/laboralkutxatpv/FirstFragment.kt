@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.laboralkutxatpv.databinding.FragmentFirstBinding
+import android.content.Intent
 
 class FirstFragment : Fragment() {
 
@@ -24,25 +25,26 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Escanear Tarjeta
-        binding.buttonEscanear.setOnClickListener {
-            Toast.makeText(requireContext(), "Escanear Tarjeta pulsado", Toast.LENGTH_SHORT).show()
-            // Ejemplo: findNavController().navigate(R.id.action_FirstFragment_to_escanearTarjetaFragment)
+        // Realizar Compra
+        binding.buttonRealizarCompra.setOnClickListener {
+            val intent = Intent(requireContext(), VentanaRealizarCompraActivity::class.java)
+            startActivity(intent)
         }
+
 
         // Clientes Recientes
         binding.buttonClientes.setOnClickListener {
-            Toast.makeText(requireContext(), "Clientes Recientes pulsado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Gestionar Productos pulsado", Toast.LENGTH_SHORT).show()
         }
 
         // Cupones Disponibles
         binding.buttonCupones.setOnClickListener {
-            Toast.makeText(requireContext(), "Cupones Disponibles pulsado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Historial de compras pulsado", Toast.LENGTH_SHORT).show()
         }
 
         // Historial de Ventas
         binding.buttonHistorial.setOnClickListener {
-            Toast.makeText(requireContext(), "Historial de Ventas pulsado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Proximamente pulsado", Toast.LENGTH_SHORT).show()
         }
     }
 
