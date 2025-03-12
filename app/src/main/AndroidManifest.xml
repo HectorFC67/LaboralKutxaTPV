@@ -32,6 +32,9 @@
 
         <!-- Agrega la Activity de monto final -->
         <activity android:name=".VentanaMontoFinal" />
+
+        <!-- Agrega la Activity de confirmacion pago -->
+        <activity android:name=".VentanaConfirmacionPago" />
         
         <!-- Agrega la Activity de gestión de productos -->
         <activity 

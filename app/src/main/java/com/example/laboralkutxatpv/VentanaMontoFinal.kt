@@ -1,5 +1,6 @@
 package com.example.laboralkutxatpv
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,13 +31,8 @@ class VentanaMontoFinal : AppCompatActivity() {
 
         // Configurar el botón continuar
         binding.btnContinuar.setOnClickListener {
-            // Aquí puedes implementar la lógica para finalizar la compra
-            // Por ejemplo, guardar la transacción en una base de datos
-            
-            Toast.makeText(this, "¡Compra completada con éxito!", Toast.LENGTH_LONG).show()
-            
-            // Volver a la pantalla principal
-            finishAffinity() // Cierra todas las actividades y vuelve a la pantalla principal
+            val intent = Intent(this, VentanaConfirmacionPago::class.java)
+            startActivity(intent)
         }
     }
 
