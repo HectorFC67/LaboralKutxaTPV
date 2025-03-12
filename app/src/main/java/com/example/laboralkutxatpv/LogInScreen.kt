@@ -20,8 +20,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var forgotPasswordText: TextView
-    private lateinit var googleLoginButton: Button
-    private lateinit var signUpText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,35 +84,11 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        googleLoginButton = Button(this).apply {
-            text = "Log in with Google"
-            setBackgroundColor(Color.WHITE)
-            setTextColor(Color.BLACK)
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            setOnClickListener {
-                Toast.makeText(this@LoginActivity, "Google Login clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        signUpText = TextView(this).apply {
-            text = "Don't have an account? Sign up"
-            setTextColor(Color.BLUE)
-            setOnClickListener {
-                val intent = Intent(this@LoginActivity, SecondFragment::class.java)
-                startActivity(intent)
-            }
-        }
-
         layout.addView(logoImage)
         layout.addView(usernameEditText)
         layout.addView(passwordEditText)
         layout.addView(loginButton)
         layout.addView(forgotPasswordText)
-        layout.addView(googleLoginButton)
-        layout.addView(signUpText)
 
         return layout
     }
