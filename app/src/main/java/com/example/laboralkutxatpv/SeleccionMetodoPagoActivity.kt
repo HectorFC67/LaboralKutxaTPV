@@ -62,13 +62,25 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
             if (!validarCampos(radioSeleccionadoId)) {
                 return@setOnClickListener
             }
-            
-            // Crear un Intent para pasar a la pantalla de monto final
-            val intent = Intent(this, VentanaMontoFinal::class.java).apply {
-                putExtra("montoTotal", montoTotal)
-                putExtra("metodoPago", metodoPago)
+
+            if (metodoPago == "Tarjeta de crédito/débito") {
+                // Crear un Intent para pasar a la pantalla de pasar la tarjeta
+                val intent = Intent(this, VentanaPasaTarjeta::class.java).apply {
+                    putExtra("montoTotal", montoTotal)
+                    putExtra("metodoPago", metodoPago)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
+
+            else if (metodoPago == "Efectivo") {
+                // Crear un Intent para pasar a la pantalla de monto final
+                val intent = Intent(this, VentanaMontoFinal::class.java).apply {
+                    putExtra("montoTotal", montoTotal)
+                    putExtra("metodoPago", metodoPago)
+                }
+                startActivity(intent)
+            }
+
         }
     }
 
