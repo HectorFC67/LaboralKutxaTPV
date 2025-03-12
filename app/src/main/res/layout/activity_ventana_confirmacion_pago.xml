@@ -18,11 +18,12 @@
 
     <ImageView
         android:id="@+id/imgOk"
-        android:layout_width="211dp"
-        android:layout_height="248dp"
-        android:layout_marginTop="164dp"
+        android:layout_width="278dp"
+        android:layout_height="329dp"
+        android:layout_marginTop="172dp"
         android:src="@drawable/tick"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +31,7 @@
         android:id="@+id/tvPagoExito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="76dp"
         android:text="Pago realizado con éxito"
         android:textColor="@android:color/black"
         android:textSize="22sp"
