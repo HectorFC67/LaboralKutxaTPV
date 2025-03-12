@@ -40,7 +40,7 @@
                 android:id="@+id/buttonRestar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="-" />
+                android:text="@string/restar" />
 
             <!-- Cantidad actual -->
             <TextView
@@ -55,7 +55,7 @@
                 android:id="@+id/buttonSumar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="+" />
+                android:text="@string/sumar" />
         </LinearLayout>
         
         <!-- Stock disponible -->
