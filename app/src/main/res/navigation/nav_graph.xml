@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_ventanaPasaTarjeta"
+            app:destination="@id/ventanaPasaTarjeta" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +28,8 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ventanaPasaTarjeta"
+        android:name="com.example.laboralkutxatpv.VentanaPasaTarjeta"
+        android:label="VentanaPasaTarjeta" />
 </navigation>

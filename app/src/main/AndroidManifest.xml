@@ -49,6 +49,8 @@
 
         <activity android:name=".VentanaPasaTarjeta" />
 
+        <activity android:name=".VentanaSeleccionarCupon" />
+
         <!-- Agrega la Activity de monto final -->
         <activity android:name=".ContrasenaOlvidada" />
 

@@ -1,9 +1,7 @@
 package com.example.laboralkutxatpv
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityVentanaPasaTarjetaBinding
@@ -27,15 +25,12 @@ class VentanaPasaTarjeta : AppCompatActivity() {
             finish() // Volver a la pantalla anterior
         }
 
-        // Configurar el botón continuar
         binding.btnAceptar.setOnClickListener {
-            // Aquí puedes implementar la lógica para finalizar la compra
-            // Por ejemplo, guardar la transacción en una base de datos
 
             Toast.makeText(this, "¡Compra completada con éxito!", Toast.LENGTH_LONG).show()
 
-            // Volver a la pantalla principal
-            finishAffinity() // Cierra todas las actividades y vuelve a la pantalla principal
+            val intent = Intent(this, VentanaSeleccionarCupon::class.java)
+            startActivity(intent)
         }
     }
 
