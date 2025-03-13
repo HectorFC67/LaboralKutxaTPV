@@ -140,7 +140,9 @@ class VentanaConfirmacionPago : AppCompatActivity() {
     
     private fun seleccionarBotonVideoconsola(botonSeleccionado: Button, botonNoSeleccionado: Button) {
         // Estilo para el botón seleccionado
-        botonSeleccionado.setBackgroundColor(getColor(R.color.purple_500))
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
+        botonSeleccionado.setBackgroundColor(typedValue.data)
         botonSeleccionado.setTextColor(getColor(android.R.color.white))
         
         // Estilo para el botón no seleccionado
