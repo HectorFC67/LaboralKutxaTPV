@@ -45,6 +45,8 @@
 
         <activity android:name=".VentanaPasaTarjeta" />
 
+        <activity android:name=".ContrasenaOlvidada" />
+
         <!-- Agrega la Activity de gestión de productos -->
         <activity 
             android:name=".GestionProductosActivity"

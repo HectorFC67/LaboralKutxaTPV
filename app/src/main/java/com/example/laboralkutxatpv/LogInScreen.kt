@@ -42,12 +42,20 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.forgotPasswordTextView.setOnClickListener {
-            Toast.makeText(this, "Funcionalidad no disponible", Toast.LENGTH_SHORT).show()
+
+            navigateToContrasenaOlvidada()
         }
     }
 
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToContrasenaOlvidada() {
+        val intent = Intent(this, ContrasenaOlvidada::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
