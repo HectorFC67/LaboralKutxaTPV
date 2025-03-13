@@ -44,7 +44,8 @@ class FirstFragment : Fragment() {
 
         // Historial de Ventas
         binding.buttonHistorial.setOnClickListener {
-            Toast.makeText(requireContext(), "Proximamente pulsado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), QRCodeScannerActivity::class.java)
+            startActivity(intent)
         }
     }
 
