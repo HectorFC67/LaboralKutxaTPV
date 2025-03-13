@@ -64,6 +64,8 @@
         <!-- NUEVA actividad que muestra "Cupón de 20% detectado" -->
         <activity android:name=".CouponDetectedActivity" />
 
+        <!-- NUEVA actividad de encuesta de satisfacción -->
+        <activity android:name=".EncuestaSatisfaccionActivity" />
 
     </application>
 

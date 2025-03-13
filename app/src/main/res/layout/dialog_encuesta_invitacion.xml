@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Su opinión nos importa"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Qué tan satisfecho/a está con su compra?"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Estrellas de valoración -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp">
+
+        <ImageView
+            android:id="@+id/estrella1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_margin="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/estrella2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_margin="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/estrella3"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_margin="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/estrella4"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_margin="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/estrella5"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:layout_margin="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
+    <!-- Pregunta adicional sobre videoconsolas -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Tienes videoconsolas en casa?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Botones Sí/No para la pregunta adicional -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp">
+
+        <Button
+            android:id="@+id/btnSiVideoconsola"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sí"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@android:color/black"/>
+
+        <Button
+            android:id="@+id/btnNoVideoconsola"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="No"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+
+    <!-- Botón de enviar -->
+    <Button
+        android:id="@+id/btnEnviarRespuesta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar respuesta"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout> 
