@@ -13,6 +13,7 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +25,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Inicializar SessionManager
+        sessionManager = SessionManager(requireContext())
 
         // Realizar Compra
         binding.buttonRealizarCompra.setOnClickListener {
@@ -45,6 +49,18 @@ class FirstFragment : Fragment() {
         // Historial de Ventas
         binding.buttonHistorial.setOnClickListener {
             Toast.makeText(requireContext(), "Proximamente pulsado", Toast.LENGTH_SHORT).show()
+        }
+
+        // Cerrar Sesión (Nuevo)
+        binding.buttonLogout.setOnClickListener {
+            // Cerrar la sesión actual
+            sessionManager.logout()
+            
+            // Navegar a la pantalla de login
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 
