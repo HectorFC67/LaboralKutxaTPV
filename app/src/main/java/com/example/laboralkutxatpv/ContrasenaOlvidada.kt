@@ -19,6 +19,7 @@ class ContrasenaOlvidada : AppCompatActivity() {
     private lateinit var resetPasswordButton: Button
     private lateinit var titleTextView: TextView
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var goToLogIn : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class ContrasenaOlvidada : AppCompatActivity() {
         newPasswordInput = findViewById(R.id.et_new_password)
         confirmPasswordInput = findViewById(R.id.et_confirm_password)
         resetPasswordButton = findViewById(R.id.btn_reset_password)
+        goToLogIn = findViewById(R.id.forgotPasswordTextView)
 
         // Initialize progress dialog
         progressDialog = ProgressDialog(this)
@@ -38,6 +40,9 @@ class ContrasenaOlvidada : AppCompatActivity() {
         // Set click listener for password reset button
         resetPasswordButton.setOnClickListener {
             resetPassword()
+        }
+        goToLogIn.setOnClickListener {
+            goToLogIn()
         }
     }
 
@@ -74,4 +79,13 @@ class ContrasenaOlvidada : AppCompatActivity() {
             finish()
         }, 2000)
     }
+    private fun goToLogIn() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
+
+
 }
