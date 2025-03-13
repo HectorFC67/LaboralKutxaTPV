@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <!-- Si quisieras usar dataBinding directamente, podrías exponer un objeto Producto aquí -->
@@ -36,11 +37,26 @@
                 android:textStyle="bold" />
 
             <!-- Botón para restar -->
-            <Button
-                android:id="@+id/buttonRestar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="@string/restar" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardButtonRestar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                
+                <TextView
+                    android:id="@+id/buttonRestar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
             <!-- Cantidad actual -->
             <TextView
@@ -51,11 +67,26 @@
                 android:textSize="16sp" />
 
             <!-- Botón para sumar -->
-            <Button
-                android:id="@+id/buttonSumar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="@string/sumar" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardButtonSumar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                
+                <TextView
+                    android:id="@+id/buttonSumar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
         
         <!-- Stock disponible -->

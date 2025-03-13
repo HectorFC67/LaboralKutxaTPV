@@ -57,8 +57,8 @@ class ProductoAdapter(
             }
             binding.textViewStock?.text = stockInfo
 
-            // Botón para sumar
-            binding.buttonSumar.setOnClickListener {
+            // Botón para sumar (ahora usando CardView)
+            binding.cardButtonSumar.setOnClickListener {
                 // Verificar si hay stock disponible antes de aumentar la cantidad
                 if (producto.cantidad < producto.stockDisponible) {
                     producto.cantidad++
@@ -74,8 +74,8 @@ class ProductoAdapter(
                 }
             }
 
-            // Botón para restar
-            binding.buttonRestar.setOnClickListener {
+            // Botón para restar (ahora usando CardView)
+            binding.cardButtonRestar.setOnClickListener {
                 if (producto.cantidad > 0) {
                     producto.cantidad--
                     notifyItemChanged(adapterPosition)
