@@ -40,15 +40,5 @@
             android:text="Proximamente..."
             android:layout_marginBottom="40dp" />
 
-        <!-- Botón para cerrar sesión -->
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cerrar Sesión"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="#E53935"
-            android:textColor="#FFFFFF" />
-
     </LinearLayout>
 </ScrollView>
