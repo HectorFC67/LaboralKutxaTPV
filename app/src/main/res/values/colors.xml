@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-      <color name="black">#FF000000</color>
-      <color name="white">#FFFFFFFF</color>
+    <!-- Colores básicos -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FF808080</color>
+    <color name="light_gray">#FFD3D3D3</color>
+    <color name="dark_gray">#FFA9A9A9</color>
+
+    <!-- Colores primarios -->
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF008000</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="cyan">#FF00FFFF</color>
+    <color name="magenta">#FFFF00FF</color>
+
+    <!-- Tonos pastel -->
+    <color name="pastel_red">#FFFFC1C1</color>
+    <color name="pastel_green">#FFC1FFC1</color>
+    <color name="pastel_blue">#FFC1D9FF</color>
+    <color name="pastel_yellow">#FFFFF6C1</color>
+    <color name="pastel_orange">#FFFFD1B3</color>
+    <color name="pastel_purple">#FFE1C1FF</color>
+    <color name="pastel_pink">#FFFFC1E3</color>
+
+    <!-- Tonos oscuros -->
+    <color name="dark_red">#FF8B0000</color>
+    <color name="dark_green">#FF006400</color>
+    <color name="dark_blue">#FF00008B</color>
+    <color name="dark_yellow">#FF9B870C</color>
+    <color name="dark_orange">#FF8B4513</color>
+    <color name="dark_purple">#FF4B0082</color>
+    <color name="dark_pink">#FFC71585</color>
+
+    <!-- Tonos suaves -->
+    <color name="soft_red">#FFFF7373</color>
+    <color name="soft_green">#FF73FF73</color>
+    <color name="soft_blue">#FF7373FF</color>
+    <color name="soft_yellow">#FFFFFF73</color>
+    <color name="soft_orange">#FFFFB573</color>
+    <color name="soft_purple">#FFD873FF</color>
+    <color name="soft_pink">#FFFF73C1</color>
+
+    <!-- Tonos vibrantes -->
+    <color name="vibrant_red">#FFFF1A1A</color>
+    <color name="vibrant_green">#FF1AFF1A</color>
+    <color name="vibrant_blue">#FF1A1AFF</color>
+    <color name="vibrant_yellow">#FFFFF01A</color>
+    <color name="vibrant_orange">#FFFF851A</color>
+    <color name="vibrant_purple">#FF851AFF</color>
+    <color name="vibrant_pink">#FFFF1A85</color>
+
+    <!-- Tonos metálicos -->
+    <color name="gold">#FFFFD700</color>
+    <color name="silver">#FFC0C0C0</color>
+    <color name="bronze">#FFCD7F32</color>
+
+    <!-- Tonos tierra -->
+    <color name="brown">#FF8B4513</color>
+    <color name="beige">#FFF5F5DC</color>
+    <color name="sand">#FFC2B280</color>
+    <color name="olive">#FF808000</color>
+
+    <!-- Tonos neón -->
+    <color name="neon_red">#FFFF073A</color>
+    <color name="neon_green">#FF39FF14</color>
+    <color name="neon_blue">#FF1B03A3</color>
+    <color name="neon_yellow">#FFF5FF14</color>
+    <color name="neon_purple">#FF8F00FF</color>
+    <color name="neon_pink">#FFFF10F0</color>
+    
   </resources>
