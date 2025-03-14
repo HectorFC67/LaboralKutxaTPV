@@ -40,5 +40,11 @@
             android:text="Proximamente..."
             android:layout_marginBottom="40dp" />
 
+        <Button
+                android:id="@+id/buttonPagarDirecto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Introducir importe"
+                android:layout_marginBottom="40dp" />
     </LinearLayout>
 </ScrollView>

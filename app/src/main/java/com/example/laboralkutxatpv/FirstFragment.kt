@@ -47,6 +47,11 @@ class FirstFragment : Fragment() {
             val intent = Intent(requireContext(), QRCodeScannerActivity::class.java)
             startActivity(intent)
         }
+        // Historial de Ventas
+        binding.buttonPagarDirecto.setOnClickListener {
+            val intent = Intent(requireContext(), QRCodeScannerActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
