@@ -128,14 +128,26 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
             "montoTotal", "importeTotal", "total", "precioTotal", "precio"
         )
         
+        // Imprimir todos los extras para depuración
+        Log.d("VentanaSeleccionarCupon", "Todos los extras disponibles:")
+        intent.extras?.let { bundle ->
+            for (key in bundle.keySet()) {
+                val value = bundle.get(key)
+                Log.d("VentanaSeleccionarCupon", "Extra: $key = $value")
+            }
+        } ?: Log.d("VentanaSeleccionarCupon", "No hay extras en el intent")
+        
         // Probar con diferentes claves
         for (clave in posiblesClaves) {
             if (intent.hasExtra(clave)) {
                 val valor = intent.getDoubleExtra(clave, -1.0)
+                Log.d("VentanaSeleccionarCupon", "Probando clave: $clave = $valor")
                 if (valor > 0) {
                     Log.d("VentanaSeleccionarCupon", "Importe encontrado en clave: $clave = $valor")
                     return valor
                 }
+            } else {
+                Log.d("VentanaSeleccionarCupon", "Clave no encontrada: $clave")
             }
         }
         
@@ -143,6 +155,7 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
         for (clave in posiblesClaves) {
             if (intent.hasExtra(clave)) {
                 val valorStr = intent.getStringExtra(clave)
+                Log.d("VentanaSeleccionarCupon", "Probando clave como String: $clave = $valorStr")
                 try {
                     val valorDouble = valorStr?.toDoubleOrNull()
                     if (valorDouble != null && valorDouble > 0) {
@@ -160,15 +173,17 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
             for (key in bundle.keySet()) {
                 try {
                     val value = bundle.get(key)
-                    Log.d("VentanaSeleccionarCupon", "Extra encontrado: $key = $value")
+                    Log.d("VentanaSeleccionarCupon", "Probando extra: $key = $value")
                     if (value is Number) {
                         val valueDouble = value.toDouble()
                         if (valueDouble > 0) {
+                            Log.d("VentanaSeleccionarCupon", "Importe encontrado en extra numérico: $key = $valueDouble")
                             return valueDouble
                         }
                     } else if (value is String) {
                         val valueDouble = value.toDoubleOrNull()
                         if (valueDouble != null && valueDouble > 0) {
+                            Log.d("VentanaSeleccionarCupon", "Importe encontrado en extra String: $key = $valueDouble")
                             return valueDouble
                         }
                     }
@@ -178,9 +193,16 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
             }
         }
         
+        // IMPORTANTE: Mostrar un Toast para notificar que no se encontró el importe
+        Toast.makeText(
+            this, 
+            "ADVERTENCIA: No se pudo obtener el importe real. Usando valor de desarrollo (59.99€)", 
+            Toast.LENGTH_LONG
+        ).show()
+        
         // Si llegamos aquí, no se encontró el importe en ningún sitio
         // Por ahora, para probar la interfaz, devolvemos un valor de ejemplo
-        // TODO: Eliminar esto en producción
+        // TODO: Eliminar esto en producción o manejar el error de otra forma
         return 59.99
     }
     

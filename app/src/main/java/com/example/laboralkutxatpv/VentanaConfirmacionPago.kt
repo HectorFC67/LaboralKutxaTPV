@@ -77,21 +77,39 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         binding.tvPagoExito.text = "Pago realizado con éxito"
         
         // Configurar el mensaje de progreso hacia el próximo cupón
-        // Suponemos que se necesitan 100€ para ganar un cupón (esto se puede ajustar)
+        // Se necesitan 100€ para ganar un cupón
         val montoParaCupon = 100.0
-        val montoAcumulado = montoTotal % montoParaCupon
-        val montoFaltante = montoParaCupon - montoAcumulado
         
-        // Actualizar el texto con el monto faltante
-        if (montoFaltante < montoParaCupon) {
+        // Lógica simplificada: solo se puede obtener 1 cupón como máximo
+        if (montoTotal >= montoParaCupon) {
+            // Ha conseguido el cupón
+            binding.tvFaltan.text = "¡Has ganado un cupón!"
+            
+            // Barra de progreso completa
+            binding.progressBarCupon.progress = 100
+            
+            // Cambiar color a morado y animar
+            val typedValue = android.util.TypedValue()
+            theme.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
+            binding.progressBarCupon.progressTintList = android.content.res.ColorStateList.valueOf(typedValue.data)
+            
+            // Animar para destacar
+            val animacion = android.view.animation.AlphaAnimation(0.5f, 1.0f)
+            animacion.duration = 500
+            animacion.repeatMode = android.view.animation.Animation.REVERSE
+            animacion.repeatCount = 3
+            binding.progressBarCupon.startAnimation(animacion)
+        } else {
+            // No ha conseguido el cupón
+            val montoFaltante = montoParaCupon - montoTotal
             binding.tvFaltan.text = "Te faltan ${formatoMoneda.format(montoFaltante)} para recibir un cupón"
             
             // Actualizar la barra de progreso
-            val progreso = ((montoAcumulado / montoParaCupon) * 100).toInt()
+            val progreso = ((montoTotal / montoParaCupon) * 100).toInt()
             binding.progressBarCupon.progress = progreso
-        } else {
-            binding.tvFaltan.text = "¡Has ganado un cupón!"
-            binding.progressBarCupon.progress = 100
+            
+            // Color verde para el progreso
+            binding.progressBarCupon.progressTintList = android.content.res.ColorStateList.valueOf(getColor(android.R.color.holo_green_dark))
         }
         
         // Configurar los textos de los botones
