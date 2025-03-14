@@ -6,7 +6,7 @@
     android:id="@+id/layoutPagoRealizado"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#FFFFFF"
     android:padding="16dp"
     tools:context=".VentanaConfirmacionPago">
 
@@ -15,7 +15,7 @@
         android:id="@+id/imgOk"
         android:layout_width="278dp"
         android:layout_height="329dp"
-        android:contentDescription="@string/next"
+        android:contentDescription="Confirmación de pago"
         android:layout_marginTop="88dp"
         android:src="@drawable/tick"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,15 +31,15 @@
         android:layout_marginTop="24dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
+        android:text="Te faltan 20€ para recibir un cupón"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgOk"
-        tools:text="Te faltan 20 euros para recibir un cupón" />
+        app:layout_constraintTop_toBottomOf="@id/imgOk" />
 
     <!-- Barra de progreso horizontal (casi llena) -->
     <ProgressBar
-        android:id="@+id/progressBarCupón"
+        android:id="@+id/progressBarCupon"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,15 +47,10 @@
         android:indeterminateOnly="false"
         android:max="100"
         android:progress="80"
-        android:progressDrawable="@android:drawable/progress_horizontal"
+        android:progressTint="#4CAF50"
         app:layout_constraintTop_toBottomOf="@id/tvFaltan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:progressTint="@color/vibrant_green" />    <!-- Ajusta para simular cuán “llena” está -->
-
-
-
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Texto: "Pago realizado con éxito" -->
     <TextView
@@ -66,35 +61,38 @@
         android:textColor="@android:color/black"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:text="Pago realizado con éxito"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressBarCupón"
-        tools:text="Pago realizado con éxito" />
+        app:layout_constraintTop_toBottomOf="@id/progressBarCupon" />
 
     <!-- Botón: Cancelar -->
     <Button
         android:id="@+id/btnCancelar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:text="Cancelar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnContinuar"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Cancelar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Botón: Continuar -->
     <Button
         android:id="@+id/btnContinuar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
+        android:text="Continuar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnCancelar"
-        tools:text="Continuar" />
+        app:layout_constraintStart_toEndOf="@id/btnCancelar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

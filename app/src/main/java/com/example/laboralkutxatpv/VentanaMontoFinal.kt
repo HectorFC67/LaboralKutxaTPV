@@ -2,15 +2,21 @@ package com.example.laboralkutxatpv
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityVentanaMontoFinalBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class VentanaMontoFinal : AppCompatActivity() {
 
     private lateinit var binding: ActivityVentanaMontoFinalBinding
     private var montoTotal: Double = 0.0
-    private var metodoPago: String = ""
+    private var montoFinal: Double = 0.0
+    private var montoDescuento: Double = 0.0
+    private var descuentoPorcentaje: Double = 0.0
+    private var descripcionDescuento: String = "Sin descuento"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +24,13 @@ class VentanaMontoFinal : AppCompatActivity() {
         setContentView(binding.root)
 
         // Obtener datos del intent
-        montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
-        metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
+        obtenerDatosIntent()
 
         // Configurar la vista con los datos
         setupUI()
+        
+        // Animar los valores
+        animarValores()
 
         // Configurar el botón cancelar
         binding.btnCancelar.setOnClickListener {
@@ -32,30 +40,76 @@ class VentanaMontoFinal : AppCompatActivity() {
         // Configurar el botón continuar
         binding.btnContinuar.setOnClickListener {
             val intent = Intent(this, VentanaConfirmacionPago::class.java)
+            // Pasar el importe final y el método de pago a la siguiente ventana
+            intent.putExtra("montoTotal", montoFinal)
             startActivity(intent)
+        }
+    }
+    
+    private fun obtenerDatosIntent() {
+        // Obtener todos los datos posibles del intent
+        montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
+        montoFinal = intent.getDoubleExtra("montoFinal", montoTotal) // Si no hay final, usar el total
+        
+        // Obtener detalles del descuento
+        montoDescuento = intent.getDoubleExtra("montoDescuento", 0.0)
+        descuentoPorcentaje = intent.getDoubleExtra("descuentoPorcentaje", 0.0)
+        descripcionDescuento = intent.getStringExtra("descripcionDescuento") ?: "Sin descuento"
+        
+        // Si no recibimos el monto de descuento pero tenemos porcentaje, calcularlo
+        if (montoDescuento == 0.0 && descuentoPorcentaje > 0) {
+            montoDescuento = montoTotal * (descuentoPorcentaje / 100)
+            montoFinal = montoTotal - montoDescuento
+        }
+        
+        // Si tenemos monto de descuento pero no porcentaje, calcular el porcentaje
+        if (montoDescuento > 0 && descuentoPorcentaje == 0.0 && montoTotal > 0) {
+            descuentoPorcentaje = (montoDescuento / montoTotal) * 100
         }
     }
 
     private fun setupUI() {
+        val formatoMoneda = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+        
         // Configurar el título
         binding.tvTitulo.text = "Resumen de Operación"
         
-        // Calcular el descuento (en este ejemplo, 0% de descuento)
-        val descuentoPorcentaje = 0.0
-        val montoDescuento = montoTotal * (descuentoPorcentaje / 100)
-        val montoFinal = montoTotal - montoDescuento
-
         // Configurar los valores en la vista
         binding.tvMontoInicialLabel.text = "Monto Inicial:"
-        binding.tvMontoInicial.text = String.format("%.2f €", montoTotal)
+        binding.tvMontoInicial.text = formatoMoneda.format(montoTotal)
         
-        binding.tvDescuentoLabel.text = "Descuento ($descuentoPorcentaje%):"
-        binding.tvDescuento.text = String.format("%.2f €", montoDescuento)
+        // Configurar el descuento con la descripción
+
+        binding.tvDescuentoLabel.text = "Descuento:"
+        binding.tvDescuento.text = "${formatoMoneda.format(montoDescuento)}"
         
-        binding.tvMontoFinalLabel.text = "Monto Final ($metodoPago):"
-        binding.tvMontoFinal.text = String.format("%.2f €", montoFinal)
+        // Re   saltar el descuento si existe
+        if (montoDescuento > 0) {
+            binding.tvDescuento.setTextColor(getColor(android.R.color.holo_green_dark))
+        }
+        
+        // Configurar el monto final con el método de pago
+        binding.tvMontoFinalLabel.text = "Monto Final:"
+        binding.tvMontoFinal.text = "${formatoMoneda.format(montoFinal)}"
         
         // Configurar botón
         binding.btnContinuar.text = "Finalizar Compra"
+    }
+    
+    private fun animarValores() {
+        // Aplicar animaciones a los importes
+        val animacionEntrada = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+        animacionEntrada.duration = 500
+        
+        binding.tvMontoInicial.startAnimation(animacionEntrada)
+        
+        // Retrasar las demás animaciones para efecto secuencial
+        binding.tvDescuento.postDelayed({
+            binding.tvDescuento.startAnimation(animacionEntrada)
+        }, 300)
+        
+        binding.tvMontoFinal.postDelayed({
+            binding.tvMontoFinal.startAnimation(animacionEntrada)
+        }, 600)
     }
 }

@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityVentanaConfirmacionPagoBinding
 import com.example.laboralkutxatpv.databinding.DialogEncuestaInvitacionBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class VentanaConfirmacionPago : AppCompatActivity() {
 
@@ -22,6 +24,8 @@ class VentanaConfirmacionPago : AppCompatActivity() {
     private var valoracionSeleccionada = 0
     private var respuestaVideoconsolaSeleccionada = false
     private var tieneVideoconsola = false
+    private var montoTotal: Double = 0.0
+    private var metodoPago: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,12 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         // Inflamos el layout usando View Binding
         binding = ActivityVentanaConfirmacionPagoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        // Obtener datos de la compra
+        obtenerDatosCompra()
+        
+        // Configurar textos e información en la UI
+        actualizarUI()
 
         // Botón "Cancelar"
         binding.btnCancelar.setOnClickListener {
@@ -50,6 +60,43 @@ class VentanaConfirmacionPago : AppCompatActivity() {
                 dialogoEncuestaShown = true
             }
         }, 500) // 500 ms = 0.5 segundos
+    }
+    
+    private fun obtenerDatosCompra() {
+        // Recuperar monto total y método de pago
+        montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
+        metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
+    }
+    
+    private fun actualizarUI() {
+        // Formatear el monto para mostrarlo
+        val formatoMoneda = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+        val montoFormateado = formatoMoneda.format(montoTotal)
+        
+        // Configurar texto para el pago exitoso
+        binding.tvPagoExito.text = "Pago realizado con éxito"
+        
+        // Configurar el mensaje de progreso hacia el próximo cupón
+        // Suponemos que se necesitan 100€ para ganar un cupón (esto se puede ajustar)
+        val montoParaCupon = 100.0
+        val montoAcumulado = montoTotal % montoParaCupon
+        val montoFaltante = montoParaCupon - montoAcumulado
+        
+        // Actualizar el texto con el monto faltante
+        if (montoFaltante < montoParaCupon) {
+            binding.tvFaltan.text = "Te faltan ${formatoMoneda.format(montoFaltante)} para recibir un cupón"
+            
+            // Actualizar la barra de progreso
+            val progreso = ((montoAcumulado / montoParaCupon) * 100).toInt()
+            binding.progressBarCupon.progress = progreso
+        } else {
+            binding.tvFaltan.text = "¡Has ganado un cupón!"
+            binding.progressBarCupon.progress = 100
+        }
+        
+        // Configurar los textos de los botones
+        binding.btnCancelar.text = "Cancelar"
+        binding.btnContinuar.text = "Continuar"
     }
 
     private fun mostrarDialogoEncuesta() {
