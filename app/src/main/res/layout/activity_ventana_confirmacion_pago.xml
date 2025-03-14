@@ -11,58 +11,90 @@
     tools:context=".VentanaConfirmacionPago">
 
     <!-- Ícono de OK en grande -->
-
-    <!-- Texto: "Pago realizado con éxito" -->
-
-    <!-- Botón: Cancelar -->
-
     <ImageView
         android:id="@+id/imgOk"
         android:layout_width="278dp"
         android:layout_height="329dp"
-        android:layout_marginTop="172dp"
+        android:contentDescription="@string/next"
+        android:layout_marginTop="88dp"
         android:src="@drawable/tick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.495" />
 
+    <!-- Texto con el mensaje de cuántos euros faltan -->
+    <TextView
+        android:id="@+id/tvFaltan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgOk"
+        tools:text="Te faltan 20 euros para recibir un cupón" />
+
+    <!-- Barra de progreso horizontal (casi llena) -->
+    <ProgressBar
+        android:id="@+id/progressBarCupón"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progress="80"
+        android:progressDrawable="@android:drawable/progress_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvFaltan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:progressTint="@color/vibrant_green" />    <!-- Ajusta para simular cuán “llena” está -->
+
+
+
+
+
+    <!-- Texto: "Pago realizado con éxito" -->
     <TextView
         android:id="@+id/tvPagoExito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Pago realizado con éxito"
+        android:layout_marginTop="24dp"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgOk" />
+        app:layout_constraintTop_toBottomOf="@id/progressBarCupón"
+        tools:text="Pago realizado con éxito" />
 
+    <!-- Botón: Cancelar -->
     <Button
         android:id="@+id/btnCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:textAllCaps="false"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnContinuar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnContinuar" />
+        tools:text="Cancelar" />
 
     <!-- Botón: Continuar -->
     <Button
         android:id="@+id/btnContinuar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continuar"
-        android:textAllCaps="false"
         android:layout_marginBottom="16dp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnCancelar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:text="Continuar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
