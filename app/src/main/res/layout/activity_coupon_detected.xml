@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/textViewCupounDetected"
@@ -12,5 +13,13 @@
         android:layout_height="wrap_content"
         android:text="¡Cupón de 20% detectado con éxito!"
         android:textSize="22sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Botón para ir a la ventana de monto final -->
+    <Button
+        android:id="@+id/buttonGoToMontoFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ir a Ventana Monto Final"/>
 </LinearLayout>
