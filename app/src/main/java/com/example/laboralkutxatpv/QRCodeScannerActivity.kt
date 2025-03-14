@@ -8,7 +8,6 @@ import com.journeyapps.barcodescanner.ScanOptions
 
 class QRCodeScannerActivity : AppCompatActivity() {
 
-    // 1) Definimos el "launcher" con ScanContract
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
             // El usuario canceló el escaneo o no se leyó nada
@@ -16,13 +15,14 @@ class QRCodeScannerActivity : AppCompatActivity() {
         } else {
             // Se obtuvo un contenido del QR
             val contenidoQR = result.contents
-            // Lógica que quieras implementar (ejemplo: verificar si es un cupón)
-            // if (contenidoQR == "CUPON20") { ... }
 
-            // Para este ejemplo, vamos a la pantalla "Cupón detectado"
+            // IMPORTANTE: Pasamos el contenidoQR a la siguiente Activity mediante putExtra
             val intent = Intent(this, CouponDetectedActivity::class.java)
+            intent.putExtra("contenidoQR", contenidoQR) // <<< AÑADIDO
             startActivity(intent)
-            finish() // Cierra la pantalla de escaneo
+
+            // Cierra la pantalla de escaneo
+            finish()
         }
     }
 
@@ -30,20 +30,17 @@ class QRCodeScannerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qr_code_scanner)
 
-        // 2) Iniciar el escaneo del código QR en cuanto se abra esta Activity
+        // Iniciar el escaneo del código QR al abrir esta Activity
         iniciarEscaneo()
     }
 
     private fun iniciarEscaneo() {
-        // 3) Configuramos nuestras opciones de escaneo:
         val options = ScanOptions().apply {
-            // Solo escanea QR, si deseas más formatos usa: setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
             setDesiredBarcodeFormats(ScanOptions.QR_CODE)
             setPrompt("Escanea el código QR")
             setBeepEnabled(true)
-            setCameraId(0) // 0 = cámara trasera; 1 = cámara frontal
+            setCameraId(0)
         }
-        // 4) Lanzamos el escáner
         barcodeLauncher.launch(options)
     }
 }
