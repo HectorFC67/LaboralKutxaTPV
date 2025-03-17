@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.laboralkutxatpv.databinding.ActivitySeleccionMetodoPago2Binding
 import com.example.laboralkutxatpv.databinding.ActivitySeleccionMetodoPagoBinding
 import com.example.laboralkutxatpv.databinding.LayoutMetodoTarjetaBinding
@@ -19,7 +20,6 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySeleccionMetodoPago2Binding
     private var montoTotal: Double = 0.0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySeleccionMetodoPago2Binding.inflate(layoutInflater)
@@ -29,7 +29,6 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
         montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
         binding.tvMontoTotal.text = "Total: ${String.format("%.2f", montoTotal)}€"
 
-
         // Configurar botón de cancelar
         binding.btnCancelar.setOnClickListener {
             finish()
@@ -37,8 +36,8 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
 
         // Configurar botón de efectivo
         binding.btnEfectivo.setOnClickListener() {
-
-
+            val intent = Intent(this, QRCodeScannerActivity::class.java)
+            startActivity(intent)
         }
 
         // Configurar botón de tarjeta
@@ -52,13 +51,6 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
         // Configurar botón de bizum
         binding.btnBizum.setOnClickListener() {
 
-
         }
     }
-
-
-
-
-
-
 } 

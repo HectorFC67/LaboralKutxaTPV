@@ -15,10 +15,11 @@
         android:layout_marginTop="24dp"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="Seleccione Método de Pago"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Seleccione Método de Pago" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvMontoTotal"
@@ -27,10 +28,11 @@
         android:layout_marginTop="16dp"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="Total: 0.00€"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        tools:text="Total: 0.00€" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,35 +47,53 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Botón Efectivo -->
-            <Button
+            <!-- Botón Efectivo con Icono -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEfectivo"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:padding="16dp"
                 android:textSize="18sp"
-                tools:text="Efectivo" />
+                android:text="Efectivo"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/vibrant_purple"
+                android:icon="@drawable/efectivo"
+                app:iconGravity="start"
+                app:iconPadding="10dp" />
 
-            <!-- Botón Tarjeta -->
-            <Button
+            <!-- Botón Tarjeta con Icono -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTarjeta"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:padding="16dp"
                 android:textSize="18sp"
-                tools:text="Tarjeta de crédito/débito" />
+                android:text="Tarjeta de crédito/débito"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/vibrant_purple"
+                android:icon="@drawable/tarjeta"
+                app:iconGravity="start"
+                app:iconPadding="10dp" />
 
-            <!-- Botón Bizum -->
-            <Button
+            <!-- Botón Bizum con Icono -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBizum"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
                 android:padding="16dp"
                 android:textSize="18sp"
-                tools:text="Bizum" />
+                android:text="Bizum"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/vibrant_purple"
+                android:icon="@drawable/bizum"
+                app:iconGravity="start"
+                app:iconPadding="10dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -92,7 +112,9 @@
             android:id="@+id/btnCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Cancelar" />
+            android:text="Cancelar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/vibrant_purple" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
