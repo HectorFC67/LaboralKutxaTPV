@@ -12,25 +12,25 @@
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seleccione Método de Pago"
+        android:layout_marginTop="24dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Seleccione Método de Pago" />
 
     <TextView
         android:id="@+id/tvMontoTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total: 0.00€"
+        android:layout_marginTop="16dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+        tools:text="Total: 0.00€" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,32 +45,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Botón Efectivo -->
             <Button
                 android:id="@+id/btnEfectivo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Efectivo"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textSize="18sp"
+                tools:text="Efectivo" />
 
+            <!-- Botón Tarjeta -->
             <Button
                 android:id="@+id/btnTarjeta"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Tarjeta de crédito/débito"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textSize="18sp"
+                tools:text="Tarjeta de crédito/débito" />
 
+            <!-- Botón Bizum -->
             <Button
                 android:id="@+id/btnBizum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bizum"
-                android:textSize="18sp"
                 android:layout_marginTop="70dp"
-                android:padding="16dp" />
+                android:padding="16dp"
+                android:textSize="18sp"
+                tools:text="Bizum" />
 
         </LinearLayout>
     </ScrollView>
@@ -89,7 +92,7 @@
             android:id="@+id/btnCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancelar"/>
+            tools:text="Cancelar" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
