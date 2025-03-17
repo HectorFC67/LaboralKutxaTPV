@@ -48,10 +48,12 @@ class VentanaConfirmacionPago : AppCompatActivity() {
 
         // Botón "Continuar"
         binding.btnContinuar.setOnClickListener {
-            // Acción al pulsar "Continuar"
-            // Por ejemplo, cerrar esta ventana
-            finishAffinity()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
         }
+
 
         // Mostrar el diálogo de encuesta después de 0.5 segundos
         Handler(Looper.getMainLooper()).postDelayed({
