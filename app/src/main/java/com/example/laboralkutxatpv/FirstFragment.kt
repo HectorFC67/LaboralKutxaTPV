@@ -49,7 +49,7 @@ class FirstFragment : Fragment() {
         }
         // Historial de Ventas
         binding.buttonPagarDirecto.setOnClickListener {
-            val intent = Intent(requireContext(), QRCodeScannerActivity::class.java)
+            val intent = Intent(requireContext(), IntroducirPago::class.java)
             startActivity(intent)
         }
     }

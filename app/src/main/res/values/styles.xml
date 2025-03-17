@@ -1,0 +1,17 @@
+<resources>
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/deep_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+
+        <item name="android:elevation">6dp</item>
+
+    </style>
+    <style name="TransparentButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@android:color/transparent</item> <!-- Remove background -->
+        <item name="android:textColor">@android:color/transparent</item> <!-- Hide text -->
+        <item name="android:elevation">0dp</item> <!-- Remove shadow -->
+        <item name="android:outlineProvider">none</item> <!-- Remove outline/shadow -->
+        <item name="android:stateListAnimator">@null</item> <!-- Disable animations that cause shadows -->
+
+    </style>
+</resources>

@@ -69,5 +69,7 @@
     <color name="neon_yellow">#FFF5FF14</color>
     <color name="neon_purple">#FF8F00FF</color>
     <color name="neon_pink">#FFFF10F0</color>
-    
+  <color name="deep_blue">#3F51B5</color>
+  <color name="light_blue">#81D4FA</color>
+  <color name="darker_gray">#616161</color>
   </resources>

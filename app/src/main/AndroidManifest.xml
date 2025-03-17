@@ -69,6 +69,7 @@
         <!-- NUEVA actividad de encuesta de satisfacción -->
         <activity android:name=".EncuestaSatisfaccionActivity" />
 
+        <activity android:name=".IntroducirPago" />
     </application>
 
 </manifest>

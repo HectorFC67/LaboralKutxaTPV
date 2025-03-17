@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/IntroducirPago"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@color/light_gray">
+
+    <!-- Amount Display -->
+    <TextView
+            android:id="@+id/amountTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="50sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@color/darker_gray"
+            android:textColor="@android:color/white"
+            android:elevation="4dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+    <!-- Button Grid -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/gridLayout">
+
+        <!-- Buttons Styled with MaterialButton -->
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn1"
+                style="@style/CustomButtonStyle"
+                android:text="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn6"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn2"
+                style="@style/CustomButtonStyle"
+                android:text="2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn1"
+                app:layout_constraintEnd_toStartOf="@+id/btn3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn7"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn3"
+                style="@style/CustomButtonStyle"
+                android:text="3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn2"
+                app:layout_constraintEnd_toStartOf="@+id/btn4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn8"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn4"
+                style="@style/CustomButtonStyle"
+                android:text="4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn3"
+                app:layout_constraintEnd_toStartOf="@+id/btn5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn9"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn5"
+                style="@style/CustomButtonStyle"
+                android:text="5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn10"/>
+
+        <!-- Second Row -->
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn6"
+                style="@style/CustomButtonStyle"
+                android:text="6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn7"
+                app:layout_constraintTop_toBottomOf="@+id/btn1"
+                app:layout_constraintBottom_toTopOf="@+id/btnComma"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn7"
+                style="@style/CustomButtonStyle"
+                android:text="7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn6"
+                app:layout_constraintEnd_toStartOf="@+id/btn8"
+                app:layout_constraintTop_toBottomOf="@+id/btn2"
+                app:layout_constraintBottom_toTopOf="@+id/btn0"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn8"
+                style="@style/CustomButtonStyle"
+                android:text="8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn7"
+                app:layout_constraintEnd_toStartOf="@+id/btn9"
+                app:layout_constraintTop_toBottomOf="@+id/btn3"
+                app:layout_constraintBottom_toTopOf="@+id/btnCharge"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn9"
+                style="@style/CustomButtonStyle"
+                android:text="9"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn8"
+                app:layout_constraintEnd_toStartOf="@+id/btn10"
+                app:layout_constraintTop_toBottomOf="@+id/btn4"
+                app:layout_constraintBottom_toTopOf="@+id/btnClear"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn10"
+                style="@style/CustomButtonStyle"
+                android:text="0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn5"
+                app:layout_constraintBottom_toTopOf="@+id/btnComma"/>
+
+        <!-- Third Row -->
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComma"
+                style="@style/CustomButtonStyle"
+                android:text="C"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn0"
+                app:layout_constraintTop_toBottomOf="@+id/btn6"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn0"
+                style="@style/TransparentButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="."
+                app:layout_constraintStart_toEndOf="@+id/btnComma"
+                app:layout_constraintEnd_toStartOf="@+id/btnCharge"
+                app:layout_constraintTop_toBottomOf="@+id/btn7"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCharge"
+                style="@style/CustomButtonStyle"
+                android:text=","
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btn0"
+                app:layout_constraintEnd_toStartOf="@+id/btnClear"
+                app:layout_constraintTop_toBottomOf="@+id/btn8"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClear"
+                style="@style/CustomButtonStyle"
+                android:text="Pagar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/btnCharge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn9"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
