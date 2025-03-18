@@ -19,6 +19,7 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySeleccionMetodoPago2Binding
     private var montoTotal: Double = 0.0
+    private val REQUEST_CODE_INTRODUCIR_PAGO = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,16 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
 
         // Configurar botón de bizum
         binding.btnBizum.setOnClickListener() {
+            val intent = Intent(this, IntroducirPago2::class.java)
+            startActivityForResult(intent, REQUEST_CODE_INTRODUCIR_PAGO)
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_INTRODUCIR_PAGO && resultCode == RESULT_OK) {
+            val importe = data?.getDoubleExtra("importe", 0.0) ?: 0.0
+            // Usar el importe...
         }
     }
 } 

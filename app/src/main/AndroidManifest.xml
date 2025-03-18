@@ -70,6 +70,10 @@
         <activity android:name=".EncuestaSatisfaccionActivity" />
 
         <activity android:name=".IntroducirPago" />
+        
+        <!-- Nueva actividad para introducir pago con teclado tipo TPV -->
+        <activity android:name=".IntroducirPago2" />
+
     </application>
 
 </manifest>

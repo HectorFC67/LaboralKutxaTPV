@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.laboralkutxatpv.databinding.FragmentFirstBinding
 import android.content.Intent
+import android.app.Activity
 
 class FirstFragment : Fragment() {
 
@@ -49,13 +50,26 @@ class FirstFragment : Fragment() {
         }
         // Historial de Ventas
         binding.buttonPagarDirecto.setOnClickListener {
-            val intent = Intent(requireContext(), IntroducirPago::class.java)
-            startActivity(intent)
+            val intent = Intent(requireContext(), IntroducirPago2::class.java)
+            startActivityForResult(intent, REQUEST_CODE_INTRODUCIR_PAGO)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val REQUEST_CODE_INTRODUCIR_PAGO = 1001
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_INTRODUCIR_PAGO && resultCode == Activity.RESULT_OK) {
+            val importe = data?.getDoubleExtra("importe", 0.0) ?: 0.0
+            // Aquí puedes manejar el importe introducido
+            Toast.makeText(requireContext(), "Importe introducido: ${String.format("%.2f€", importe)}", Toast.LENGTH_LONG).show()
+        }
     }
 }
