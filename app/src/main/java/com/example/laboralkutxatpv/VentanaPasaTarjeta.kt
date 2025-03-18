@@ -26,10 +26,10 @@ class VentanaPasaTarjeta : AppCompatActivity() {
         }
 
         binding.btnAceptar.setOnClickListener {
-
             Toast.makeText(this, "¡Compra completada con éxito!", Toast.LENGTH_LONG).show()
-
             val intent = Intent(this, VentanaSeleccionarCupon::class.java)
+            intent.putExtra("montoTotal", importe)
+            intent.putExtra("metodoPago", "Tarjeta")
             startActivity(intent)
         }
     }

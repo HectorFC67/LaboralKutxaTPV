@@ -193,17 +193,17 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
             }
         }
         
-        // IMPORTANTE: Mostrar un Toast para notificar que no se encontró el importe
+        // Si llegamos aquí, no se encontró el importe en ningún sitio
+        Log.e("VentanaSeleccionarCupon", "No se pudo encontrar el importe en ninguna fuente")
         Toast.makeText(
             this, 
-            "ADVERTENCIA: No se pudo obtener el importe real. Usando valor de desarrollo (59.99€)", 
+            "Error: No se pudo obtener el importe de la compra", 
             Toast.LENGTH_LONG
         ).show()
         
-        // Si llegamos aquí, no se encontró el importe en ningún sitio
-        // Por ahora, para probar la interfaz, devolvemos un valor de ejemplo
-        // TODO: Eliminar esto en producción o manejar el error de otra forma
-        return 59.99
+        // En lugar de devolver un valor fijo, cerramos la actividad
+        finish()
+        return 0.0
     }
     
     private fun obtenerDescripcionDescuento(): String {

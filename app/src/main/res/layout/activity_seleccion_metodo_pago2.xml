@@ -5,116 +5,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="24dp"
+    android:background="@color/white"
     tools:context=".SeleccionMetodoPagoActivity">
 
     <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="Seleccione Método de Pago"
+        android:textColor="?attr/colorPrimary"
+        android:text="Seleccione método de pago"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvMontoTotal"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="Total: 0.00€"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo" />
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total a pagar"
+                android:textSize="16sp"
+                android:textColor="@color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tvMontoTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:text="Total: 49.99€" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvMontoTotal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutButtons">
+        app:layout_constraintTop_toBottomOf="@id/cardTotal"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContainer">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Botón Efectivo con Icono -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEfectivo"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginBottom="16dp"
                 android:padding="16dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="Efectivo"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/vibrant_purple"
-                android:icon="@drawable/efectivo"
-                app:iconGravity="start"
-                app:iconPadding="10dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="?attr/colorPrimary"
+                app:icon="@drawable/ic_payment"
+                app:iconTint="@color/white"
+                app:cornerRadius="12dp" />
 
-            <!-- Botón Tarjeta con Icono -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTarjeta"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginBottom="16dp"
                 android:padding="16dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="Tarjeta de crédito/débito"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/vibrant_purple"
-                android:icon="@drawable/tarjeta"
-                app:iconGravity="start"
-                app:iconPadding="10dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="?attr/colorPrimary"
+                app:icon="@drawable/ic_credit_card"
+                app:iconTint="@color/white"
+                app:cornerRadius="12dp" />
 
-            <!-- Botón Bizum con Icono -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBizum"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginBottom="16dp"
                 android:padding="16dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:text="Bizum"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/vibrant_purple"
-                android:icon="@drawable/bizum"
-                app:iconGravity="start"
-                app:iconPadding="10dp" />
+                android:textColor="@color/white"
+                android:backgroundTint="?attr/colorPrimary"
+                app:icon="@drawable/ic_mobile_payment"
+                app:iconTint="@color/white"
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/linearLayoutButtons"
+        android:id="@+id/buttonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
             android:id="@+id/btnCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/vibrant_purple" />
+            android:textSize="16sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
