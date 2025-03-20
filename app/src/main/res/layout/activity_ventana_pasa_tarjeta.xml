@@ -8,12 +8,11 @@
 
     <ImageView
         android:id="@+id/imgContactless"
-        android:layout_width="278dp"
-        android:layout_height="329dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="263dp"
+        android:layout_height="307dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/contactless"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,22 +28,24 @@
         <!-- BOTÓN CANCELAR -->
         <Button
             android:id="@+id/btnCancelar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancelar"
             android:textAllCaps="false"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"/>
 
         <!-- BOTÓN CONTINUAR -->
         <Button
             android:id="@+id/btnAceptar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/next"
             android:textAllCaps="false"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             tools:text="Aceptar" />
 
     </LinearLayout>
@@ -53,12 +54,11 @@
         android:id="@+id/infoPasarTarjeta"
         android:layout_width="278dp"
         android:layout_height="41dp"
-        android:layout_marginTop="52dp"
-        android:textSize="17sp"
+        android:layout_marginTop="8dp"
         android:text="Next"
         android:textAlignment="center"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgContactless"
         tools:text="Aproxima, inserta o pasa la tarjeta por el datáfono" />
@@ -67,13 +67,12 @@
         android:id="@+id/importeLabel"
         android:layout_width="256dp"
         android:layout_height="29dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:text="@string/next"
         android:textAlignment="center"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoPasarTarjeta"
         tools:text="Importe" />
@@ -82,12 +81,11 @@
         android:id="@+id/importe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:text="@string/next"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/importeLabel"
         tools:text="90.00 €" />

@@ -11,19 +11,20 @@
     tools:context=".VentanaConfirmacionPago">
 
     <!-- Ícono de OK en grande -->
+
+    <!-- Texto con el mensaje de cuántos euros faltan -->
+
     <ImageView
         android:id="@+id/imgOk"
         android:layout_width="214dp"
         android:layout_height="269dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="36dp"
         android:contentDescription="Confirmación de pago"
         android:src="@drawable/symbol_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Texto con el mensaje de cuántos euros faltan -->
     <TextView
         android:id="@+id/tvFaltan"
         android:layout_width="wrap_content"
