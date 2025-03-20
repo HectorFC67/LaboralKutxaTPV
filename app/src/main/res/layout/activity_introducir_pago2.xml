@@ -204,8 +204,8 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:backgroundTint="#F44336"
-            android:text="Cancelar"
-            android:textSize="12sp"
+            android:text="X"
+            android:textSize="20sp"
             app:cornerRadius="40dp" />
 
         <com.google.android.material.button.MaterialButton
@@ -214,10 +214,10 @@
             android:layout_height="80dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFC107"
+            android:backgroundTint="#FFB200"
             android:text="C"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textColor="@color/beige"
+            android:textSize="20sp"
             app:cornerRadius="40dp" />
 
         <com.google.android.material.button.MaterialButton
@@ -227,8 +227,8 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:backgroundTint="#4CAF50"
-            android:text="Confirmar"
-            android:textSize="12sp"
+            android:text="◯"
+            android:textSize="20sp"
             app:cornerRadius="40dp" />
 
     </LinearLayout>

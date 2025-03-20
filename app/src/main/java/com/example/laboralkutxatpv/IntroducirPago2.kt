@@ -47,7 +47,6 @@ class IntroducirPago2 : AppCompatActivity() {
     private fun setupBotonesControl() {
         // Botón rojo (Cancelar)
         binding.btnCancelar.apply {
-            text = "CANCELAR"
             setOnClickListener {
                 setResult(RESULT_CANCELED)
                 finish()
@@ -56,13 +55,11 @@ class IntroducirPago2 : AppCompatActivity() {
 
         // Botón amarillo (Borrar todo)
         binding.btnBorrar.apply {
-            text = "C"
             setOnClickListener { borrarTodo() }
         }
 
         // Botón verde (Aceptar)
         binding.btnAceptar.apply {
-            text = "ACEPTAR"
             setOnClickListener { aceptarImporte() }
         }
     }
@@ -158,4 +155,4 @@ class IntroducirPago2 : AppCompatActivity() {
             finish()
         }
     }
-} 
+}
