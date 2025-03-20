@@ -9,6 +9,7 @@ import com.example.laboralkutxatpv.databinding.ActivityVentanaPasaTarjetaBinding
 class VentanaPasaTarjeta : AppCompatActivity() {
     private lateinit var binding: ActivityVentanaPasaTarjetaBinding
     private var importe: Double = 0.0
+    private var productosSeleccionados: ArrayList<Producto>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +17,10 @@ class VentanaPasaTarjeta : AppCompatActivity() {
         setContentView(binding.root)
 
         importe = intent.getDoubleExtra("montoTotal", 0.0)
+        
+        // Obtener productos seleccionados
+        @Suppress("UNCHECKED_CAST")
+        productosSeleccionados = intent.getSerializableExtra("productos") as? ArrayList<Producto>
 
         // Configurar la vista con los datos
         setupUI()
@@ -30,6 +35,10 @@ class VentanaPasaTarjeta : AppCompatActivity() {
             val intent = Intent(this, VentanaSeleccionarCupon::class.java)
             intent.putExtra("montoTotal", importe)
             intent.putExtra("metodoPago", "Tarjeta")
+            
+            // Pasar los productos seleccionados
+            intent.putExtra("productos", productosSeleccionados)
+            
             startActivity(intent)
         }
     }

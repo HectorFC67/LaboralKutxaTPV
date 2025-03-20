@@ -41,6 +41,11 @@ class CouponDetectedActivity : AppCompatActivity() {
             intent.putExtra("descripcionDescuento", "Cupón descuento 20%")
             intent.putExtra("metodoPago", metodoPago)
             
+            // Pasar los productos seleccionados si están disponibles
+            if (intent.hasExtra("productos")) {
+                intent.putExtra("productos", intent.getSerializableExtra("productos"))
+            }
+            
             startActivity(intent)
         }
     }

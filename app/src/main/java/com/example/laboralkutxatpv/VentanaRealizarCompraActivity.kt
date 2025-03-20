@@ -52,11 +52,24 @@ class VentanaRealizarCompraActivity : AppCompatActivity() {
             if (montoTotal <= 0.0) {
                 Toast.makeText(this, "Debe seleccionar al menos un producto", Toast.LENGTH_SHORT).show()
             } else {
-                // Navegar a la pantalla de selección de método de pago
-                val intent = Intent(this, SeleccionMetodoPagoActivity::class.java).apply {
-                    putExtra("montoTotal", montoTotal)
+                try {
+                    // Obtener la lista de productos seleccionados (cantidad > 0)
+                    val productosSeleccionados = productoAdapter.obtenerProductosSeleccionados()
+                    
+                    // Navegar a la pantalla de selección de método de pago
+                    val intent = Intent(this, SeleccionMetodoPagoActivity::class.java)
+                    intent.putExtra("montoTotal", montoTotal)
+                    // Asegurarse de que los productos sean serializables
+                    val productosArray = ArrayList(productosSeleccionados)
+                    intent.putExtra("productos", productosArray)
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    // En caso de error, al menos permitir continuar sin los productos
+                    Toast.makeText(this, "Error al preparar los productos: " + e.message, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, SeleccionMetodoPagoActivity::class.java)
+                    intent.putExtra("montoTotal", montoTotal)
+                    startActivity(intent)
                 }
-                startActivity(intent)
             }
         }
     }

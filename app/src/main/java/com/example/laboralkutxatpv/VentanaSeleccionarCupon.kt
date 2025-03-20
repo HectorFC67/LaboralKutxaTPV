@@ -24,6 +24,7 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
     private var importeFinal: Double = 0.0
     private var descuentoSeleccionado: TipoDescuento = TipoDescuento.NINGUNO
     private var metodoPago: String = "No especificado"
+    private var productosSeleccionados: ArrayList<Producto>? = null
     
     // Enum para manejar los tipos de descuento
     enum class TipoDescuento {
@@ -41,6 +42,10 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
         
         // Obtener el método de pago si está disponible
         metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
+        
+        // Obtener productos seleccionados
+        @Suppress("UNCHECKED_CAST")
+        productosSeleccionados = intent.getSerializableExtra("productos") as? ArrayList<Producto>
 
         // Log para depuración
         Log.d("VentanaSeleccionarCupon", "Importe original: $importeOriginal")
@@ -92,6 +97,9 @@ class VentanaSeleccionarCupon : AppCompatActivity() {
         
         // Enviar la descripción del descuento
         intent.putExtra("descripcionDescuento", obtenerDescripcionDescuento())
+        
+        // Pasar los productos seleccionados
+        intent.putExtra("productos", productosSeleccionados)
         
         // Iniciar la actividad
         startActivity(intent)

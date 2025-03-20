@@ -1,5 +1,7 @@
 package com.example.laboralkutxatpv
 
+import java.io.Serializable
+
 data class ProductoCompleto(
     val id: Long = 0,
     var nombre: String,
@@ -8,7 +10,7 @@ data class ProductoCompleto(
     var descripcion: String = "",
     // El campo cantidad se usa durante la compra, pero no en la gestión
     var cantidad: Int = 0
-) {
+) : Serializable {
     // Constructor de conversión desde el modelo simple Producto
     constructor(producto: Producto) : this(
         nombre = producto.nombre,

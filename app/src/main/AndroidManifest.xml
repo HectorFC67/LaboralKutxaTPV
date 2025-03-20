@@ -74,6 +74,11 @@
         <!-- Nueva actividad para introducir pago con teclado tipo TPV -->
         <activity android:name=".IntroducirPago2" />
 
+        <!-- Actividad de historial de ventas -->
+        <activity 
+            android:name=".HistorialVentasActivity"
+            android:label="Historial de Ventas" />
+
     </application>
 
 </manifest>

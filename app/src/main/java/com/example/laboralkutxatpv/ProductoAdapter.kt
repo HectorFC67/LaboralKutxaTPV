@@ -36,6 +36,11 @@ class ProductoAdapter(
         return total
     }
 
+    // Método para obtener solo los productos que tienen cantidad > 0
+    fun obtenerProductosSeleccionados(): List<Producto> {
+        return productos.filter { it.cantidad > 0 }
+    }
+
     // Notificar cambio en total
     private fun notificarCambioTotal() {
         onTotalChanged?.invoke(calcularTotal())

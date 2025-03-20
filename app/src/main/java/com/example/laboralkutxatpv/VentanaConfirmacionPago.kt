@@ -14,7 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityVentanaConfirmacionPagoBinding
 import com.example.laboralkutxatpv.databinding.DialogEncuestaInvitacionBinding
+import com.example.laboralkutxatpv.model.ProductoVendido
+import com.example.laboralkutxatpv.model.Venta
+import com.example.laboralkutxatpv.repository.VentaRepository
 import java.text.NumberFormat
+import java.util.Date
 import java.util.Locale
 
 class VentanaConfirmacionPago : AppCompatActivity() {
@@ -26,6 +30,7 @@ class VentanaConfirmacionPago : AppCompatActivity() {
     private var tieneVideoconsola = false
     private var montoTotal: Double = 0.0
     private var metodoPago: String = ""
+    private var productosSeleccionados: ArrayList<Producto>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,9 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         
         // Obtener datos de la compra
         obtenerDatosCompra()
+        
+        // Registrar la venta en el historial
+        registrarVenta()
         
         // Configurar textos e información en la UI
         actualizarUI()
@@ -68,6 +76,47 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         // Recuperar monto total y método de pago
         montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
         metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
+        
+        // Intentar recuperar los productos seleccionados
+        @Suppress("UNCHECKED_CAST")
+        productosSeleccionados = intent.getSerializableExtra("productos") as? ArrayList<Producto>
+    }
+    
+    private fun registrarVenta() {
+        try {
+            // Crear lista de productos vendidos
+            val productosVendidos = productosSeleccionados?.map { producto ->
+                ProductoVendido(
+                    nombreProducto = producto.nombre,
+                    precioUnitario = producto.precio,
+                    cantidad = producto.cantidad,
+                    subtotal = producto.precio * producto.cantidad
+                )
+            } ?: emptyList()
+            
+            // Obtener información del cupón
+            val cuponUtilizado = intent.getStringExtra("descripcionDescuento") ?: "Ninguno"
+            
+            // Crear objeto Venta
+            val venta = Venta(
+                fecha = Date(),
+                montoTotal = montoTotal,
+                metodoPago = metodoPago,
+                cuponUtilizado = cuponUtilizado,
+                productos = productosVendidos
+            )
+            
+            // Registrar la venta en el repositorio
+            VentaRepository.getInstance().registrarVenta(venta)
+            
+            // Mostrar confirmación
+            Toast.makeText(this, "Venta registrada con éxito", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            // En caso de error al registrar la venta
+            Toast.makeText(this, 
+                "Error al registrar la venta: " + e.message, 
+                Toast.LENGTH_SHORT).show()
+        }
     }
     
     private fun actualizarUI() {

@@ -40,7 +40,8 @@ class FirstFragment : Fragment() {
 
         // Cupones Disponibles
         binding.buttonCupones.setOnClickListener {
-            Toast.makeText(requireContext(), "Historial de compras pulsado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), HistorialVentasActivity::class.java)
+            startActivity(intent)
         }
 
         // Historial de Ventas

@@ -44,6 +44,10 @@ class VentanaMontoFinal : AppCompatActivity() {
             // Pasar el importe final y el método de pago a la siguiente ventana
             intent.putExtra("montoTotal", montoFinal)
             intent.putExtra("metodoPago", metodoPago)
+            // Pasar la información del cupón
+            intent.putExtra("descripcionDescuento", descripcionDescuento)
+            // Transferir productos si existen
+            intent.putExtras(this.intent)
             startActivity(intent)
         }
     }
