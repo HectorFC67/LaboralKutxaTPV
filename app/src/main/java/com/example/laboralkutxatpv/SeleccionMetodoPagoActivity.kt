@@ -38,6 +38,9 @@ class SeleccionMetodoPagoActivity : AppCompatActivity() {
         // Configurar botón de efectivo
         binding.btnEfectivo.setOnClickListener() {
             val intent = Intent(this, QRCodeScannerActivity::class.java)
+            // Pasar el importe final y el método de pago a la siguiente ventana
+            intent.putExtra("montoTotal", montoTotal)
+            intent.putExtra("metodoPago", "Efectivo")
             startActivity(intent)
         }
 
