@@ -13,15 +13,15 @@
     <!-- Ícono de OK en grande -->
     <ImageView
         android:id="@+id/imgOk"
-        android:layout_width="278dp"
-        android:layout_height="329dp"
-        android:contentDescription="Confirmación de pago"
+        android:layout_width="214dp"
+        android:layout_height="269dp"
         android:layout_marginTop="88dp"
-        android:src="@drawable/tick"
+        android:contentDescription="Confirmación de pago"
+        android:src="@drawable/symbol_ok"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.495" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Texto con el mensaje de cuántos euros faltan -->
     <TextView
