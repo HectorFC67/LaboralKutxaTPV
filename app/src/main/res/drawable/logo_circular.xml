@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Color de fondo magenta exacto -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#b41c5b" />
+            <size android:width="128dp" android:height="128dp" />
+        </shape>
+    </item>
+    
+    <!-- Logo centrado y escalado apropiadamente -->
+    <item
+        android:drawable="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:width="85dp"
+        android:height="85dp" />
+</layer-list> 
