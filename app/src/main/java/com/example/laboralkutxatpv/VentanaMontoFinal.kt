@@ -17,6 +17,7 @@ class VentanaMontoFinal : AppCompatActivity() {
     private var montoDescuento: Double = 0.0
     private var descuentoPorcentaje: Double = 0.0
     private var descripcionDescuento: String = "Sin descuento"
+    private var metodoPago: String = "No especificado"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class VentanaMontoFinal : AppCompatActivity() {
             val intent = Intent(this, VentanaConfirmacionPago::class.java)
             // Pasar el importe final y el método de pago a la siguiente ventana
             intent.putExtra("montoTotal", montoFinal)
+            intent.putExtra("metodoPago", metodoPago)
             startActivity(intent)
         }
     }
@@ -55,6 +57,7 @@ class VentanaMontoFinal : AppCompatActivity() {
         montoDescuento = intent.getDoubleExtra("montoDescuento", 0.0)
         descuentoPorcentaje = intent.getDoubleExtra("descuentoPorcentaje", 0.0)
         descripcionDescuento = intent.getStringExtra("descripcionDescuento") ?: "Sin descuento"
+        metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
         
         // Si no recibimos el monto de descuento pero tenemos porcentaje, calcularlo
         if (montoDescuento == 0.0 && descuentoPorcentaje > 0) {

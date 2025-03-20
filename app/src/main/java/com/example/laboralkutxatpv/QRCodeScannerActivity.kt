@@ -18,7 +18,17 @@ class QRCodeScannerActivity : AppCompatActivity() {
 
             // IMPORTANTE: Pasamos el contenidoQR a la siguiente Activity mediante putExtra
             val intent = Intent(this, CouponDetectedActivity::class.java)
-            intent.putExtra("contenidoQR", contenidoQR) // <<< AÑADIDO
+            intent.putExtra("contenidoQR", contenidoQR)
+            
+            // Pasar el monto total y método de pago si están disponibles
+            if (getIntent().extras != null) {
+                val montoTotal = getIntent().getDoubleExtra("montoTotal", 0.0)
+                val metodoPago = getIntent().getStringExtra("metodoPago") ?: "No especificado"
+                
+                intent.putExtra("montoTotal", montoTotal)
+                intent.putExtra("metodoPago", metodoPago)
+            }
+            
             startActivity(intent)
 
             // Cierra la pantalla de escaneo
