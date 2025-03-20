@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
@@ -63,6 +64,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+
     <!-- Botones inferiores -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,19 +73,35 @@
         android:orientation="horizontal"
         android:paddingTop="8dp">
 
-        <Button
-            android:id="@+id/buttonCancelar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancelar" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/buttonSeleccionarPago"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Seleccionar método de pago" />
+            <!-- BOTÓN CANCELAR -->
+            <Button
+                    android:id="@+id/btnCancelar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancelar"
+                    android:textAllCaps="false"
+                    android:layout_marginEnd="8dp" />
 
+            <!-- BOTÓN CONTINUAR -->
+            <Button
+                    android:id="@+id/btnContinuar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="8dp"
+                    android:text="Método de pago" />
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -40,12 +40,12 @@ class VentanaRealizarCompraActivity : AppCompatActivity() {
         actualizarTotal(0.0)
 
         // Botón para Cancelar (vuelve atrás)
-        binding.buttonCancelar.setOnClickListener {
+        binding.btnCancelar.setOnClickListener {
             finish()
         }
 
         // Botón para Seleccionar método de pago
-        binding.buttonSeleccionarPago.setOnClickListener {
+        binding.btnContinuar.setOnClickListener {
             // Verificar que haya al menos un producto seleccionado
             val montoTotal = productoAdapter.calcularTotal()
             
