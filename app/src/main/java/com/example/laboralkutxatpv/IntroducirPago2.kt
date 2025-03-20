@@ -146,10 +146,10 @@ class IntroducirPago2 : AppCompatActivity() {
             // Convertimos la cadena reemplazando la coma por punto para el parsing
             val numeroStr = if (hayComa) importeActual.replace(",", ".") else importeActual
             val importe = numeroStr.toDouble()
-            val intent = Intent()
-            intent.putExtra("importe", importe)
-            setResult(RESULT_OK, intent)
-            finish()
+            val intent = Intent(this, SeleccionMetodoPagoActivity::class.java).apply {
+                putExtra("montoTotal", importe)
+            }
+            startActivity(intent)
         } catch (e: NumberFormatException) {
             setResult(RESULT_CANCELED)
             finish()
