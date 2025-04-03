@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Iniciar sesión"
-            android:backgroundTint="@android:color/holo_blue_dark"
             android:textColor="@android:color/white" />
 
     <TextView
