@@ -15,15 +15,6 @@ class IntroducirPago2 : AppCompatActivity() {
     private var hayComa: Boolean = false
     private var decimales: Int = 0
     private val formatoMoneda = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
-    
-    // Variables para operaciones matemáticas
-    private var valorAlmacenado: Double = 0.0
-    private var operacionActual: String = ""
-    private var empezarNuevoNumero: Boolean = true
-
-    // Variables para operaciones de descuento
-    private var mostrandoDescuento: Boolean = false
-    private var importeOriginal: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +40,8 @@ class IntroducirPago2 : AppCompatActivity() {
         // Configurar botón coma
         binding.btnComa.setOnClickListener { agregarComa() }
 
-        // Configurar botón F (descuentos rápidos)
-        binding.btnF.apply {
-            // Hacerlo más visible como botón de función
-            text = "DTO %"
-            
-            // Al hacer clic mostramos un diálogo con las opciones de descuento
-            setOnClickListener { mostrarOpcionesDescuento() }
-        }
+        // Configurar botón F (ahora borra último dígito)
+        binding.btnF.setOnClickListener { borrarUltimoDigito() }
     }
 
     private fun setupBotonesControl() {
@@ -87,14 +72,6 @@ class IntroducirPago2 : AppCompatActivity() {
     }
 
     private fun agregarNumero(numero: Int) {
-        // Si estamos empezando un nuevo número después de una operación
-        if (empezarNuevoNumero) {
-            importeActual = "0"
-            hayComa = false
-            decimales = 0
-            empezarNuevoNumero = false
-        }
-        
         if (hayComa) {
             val parteDecimal = importeActual.substring(importeActual.indexOf(",") + 1)
             if (parteDecimal == "00") {
@@ -184,92 +161,5 @@ class IntroducirPago2 : AppCompatActivity() {
             setResult(RESULT_CANCELED)
             finish()
         }
-    }
-
-    private fun mostrarOpcionesDescuento() {
-        // Si ya estamos mostrando un descuento, volver al importe original
-        if (mostrandoDescuento) {
-            // Restaurar el importe original
-            val importeStr = importeOriginal.toString().replace(".", ",")
-            importeActual = importeStr
-            hayComa = importeStr.contains(",")
-            mostrandoDescuento = false
-            actualizarDisplay()
-            return
-        }
-        
-        // Guardar el importe actual como original
-        val numeroStr = if (hayComa) importeActual.replace(",", ".") else importeActual
-        importeOriginal = numeroStr.toDouble()
-        
-        // Crear un diálogo con las opciones de descuento
-        val opciones = arrayOf("5% descuento", "10% descuento", "15% descuento", "20% descuento", "Personalizado")
-        
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Aplicar descuento")
-            .setItems(opciones) { _, which ->
-                when (which) {
-                    0 -> aplicarDescuentoPorcentaje(5.0)
-                    1 -> aplicarDescuentoPorcentaje(10.0)
-                    2 -> aplicarDescuentoPorcentaje(15.0)
-                    3 -> aplicarDescuentoPorcentaje(20.0)
-                    4 -> mostrarDescuentoPersonalizado()
-                }
-            }
-            .show()
-    }
-    
-    private fun aplicarDescuentoPorcentaje(porcentaje: Double) {
-        val descuento = importeOriginal * (porcentaje / 100.0)
-        val importeConDescuento = importeOriginal - descuento
-        
-        // Formatear y mostrar el resultado con 2 decimales
-        val importeStr = String.format("%.2f", importeConDescuento).replace(".", ",")
-        importeActual = importeStr
-        hayComa = true
-        mostrandoDescuento = true
-        
-        actualizarDisplay()
-        
-        // Mostrar un mensaje con el descuento aplicado
-        android.widget.Toast.makeText(
-            this,
-            "Descuento del ${porcentaje.toInt()}% aplicado: -${String.format("%.2f", descuento)}€",
-            android.widget.Toast.LENGTH_SHORT
-        ).show()
-    }
-    
-    private fun mostrarDescuentoPersonalizado() {
-        // Crear un diálogo para introducir el porcentaje personalizado
-        val dialogView = android.widget.EditText(this).apply {
-            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
-            hint = "Introduce % (ej: 7.5)"
-        }
-        
-        android.app.AlertDialog.Builder(this)
-            .setTitle("Descuento personalizado")
-            .setView(dialogView)
-            .setPositiveButton("Aplicar") { _, _ ->
-                try {
-                    val porcentaje = dialogView.text.toString().toDouble()
-                    if (porcentaje > 0 && porcentaje <= 100) {
-                        aplicarDescuentoPorcentaje(porcentaje)
-                    } else {
-                        android.widget.Toast.makeText(
-                            this,
-                            "Por favor, introduce un valor entre 0 y 100",
-                            android.widget.Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } catch (e: Exception) {
-                    android.widget.Toast.makeText(
-                        this,
-                        "Valor no válido",
-                        android.widget.Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
     }
 }
