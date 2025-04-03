@@ -1,29 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_header_root"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/dark_purple"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <ImageView
-        android:id="@+id/nav_header_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="Profile Picture"
-        android:src="@android:drawable/ic_menu_myplaces" />
-
-    <TextView
-        android:id="@+id/nav_header_username"
+    <!-- Fila horizontal con el círculo y el nombre -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+        
+        <!-- Círculo con la inicial del usuario -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_circle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:cardBackgroundColor="#b41c5b"
+            app:cardCornerRadius="35dp"
+            app:cardElevation="4dp">
+            
+            <TextView
+                android:id="@+id/initial_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="U"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+                
+        </androidx.cardview.widget.CardView>
+
+        <!-- Nombre de usuario editable -->
+        <EditText
+            android:id="@+id/nav_header_username"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Usuario"
+            android:background="@null"
+            android:enabled="false"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:inputType="textPersonName"
+            android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZáéíóúÁÉÍÓÚ0123456789.@_- " />
+    </LinearLayout>
+
+    <!-- Espacio adicional en la parte inferior -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
 
 </LinearLayout>

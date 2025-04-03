@@ -40,6 +40,14 @@ class SessionManager(context: Context) {
     }
 
     /**
+     * Actualiza el nombre de usuario manteniendo la sesión activa
+     */
+    fun updateUsername(newUsername: String) {
+        editor.putString(KEY_USERNAME, newUsername)
+        editor.apply()
+    }
+
+    /**
      * Cierra la sesión del usuario eliminando los datos de sesión
      */
     fun logout() {

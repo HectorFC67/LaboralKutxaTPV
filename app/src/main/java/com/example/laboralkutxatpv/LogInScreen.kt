@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityLoginBinding
+import com.google.android.material.textfield.TextInputEditText
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -25,8 +26,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
+            val username = binding.usernameEditText.text.toString().trim()
+            val password = binding.passwordEditText.text.toString().trim()
             
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 // Guardar datos de sesión
@@ -42,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.forgotPasswordTextView.setOnClickListener {
-
             navigateToContrasenaOlvidada()
         }
     }
@@ -60,6 +60,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-
 }

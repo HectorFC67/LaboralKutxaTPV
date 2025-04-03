@@ -79,6 +79,11 @@
             android:name=".HistorialVentasActivity"
             android:label="Historial de Ventas" />
 
+        <!-- Actividad de editar perfil -->
+        <activity 
+            android:name=".EditProfileActivity"
+            android:label="Editar Perfil" />
+
     </application>
 
 </manifest>

@@ -55,4 +55,7 @@ dependencies {
     // Gson para serialización/deserialización JSON
     implementation("com.google.code.gson:gson:2.10.1")
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    
+    // CircleImageView para imágenes de perfil circulares
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
