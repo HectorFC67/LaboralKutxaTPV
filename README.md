@@ -94,4 +94,7 @@ Por último, la primera versión de la aplicación cuenta con un historial de ve
 
   ![Ventana de historial de ventas](https://github.com/user-attachments/assets/8d5b2d4c-ab83-4da0-9904-985cb18f0269)
 
+También podemos ver dentro de cada compra los productos comprados, el cupón utilizado y la fecha y hora de la realización del pago, para ver más detalle de la compra, se pulsa la flecha que está mirando hacia abajo justo en la parte inferior de cada compra.
 
+  ![Compra más detallada dentro de la ventana de historial de compras](https://github.com/user-attachments/assets/66559725-b3d1-4191-89bb-c7805ef26a42)
+  
