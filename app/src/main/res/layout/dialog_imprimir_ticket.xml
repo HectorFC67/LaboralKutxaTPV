@@ -1,40 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="24dp"
     android:background="@android:color/white">
 
-    <!-- Título o texto de cabecera (opcional) -->
-    <TextView
-        android:id="@+id/tvTituloTicket"
+    <!-- Cabecera con ícono y título -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detalles del ticket"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+        
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:tint="#b41c5b"
+            android:layout_marginEnd="12dp"/>
+            
+        <TextView
+            android:id="@+id/tvTituloTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detalles del Ticket"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#b41c5b"/>
+    </LinearLayout>
+    
+    <!-- Línea separadora -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
         android:layout_marginBottom="16dp"/>
 
     <!-- ScrollView que envuelve al TextView con los detalles -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp"
+        android:background="#F8F8F8"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvContenidoTicket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"/>
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.2"/>
     </ScrollView>
 
-    <!-- Botón para cerrar el diálogo -->
-    <Button
-        android:id="@+id/btnCerrarTicket"
+    <!-- Botones para imprimir y cerrar -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar"/>
+        android:orientation="horizontal">
+        
+        <Button
+            android:id="@+id/btnCerrarTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Cerrar"
+            android:drawableStart="@android:drawable/ic_menu_close_clear_cancel"
+            android:paddingStart="16dp"
+            android:backgroundTint="#888888"/>
+            
+        <Button
+            android:id="@+id/btnImprimirTicketReal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Imprimir"
+            android:drawableStart="@android:drawable/ic_menu_send"
+            android:paddingStart="16dp"/>
+    </LinearLayout>
 </LinearLayout>

@@ -3,9 +3,12 @@ package com.example.laboralkutxatpv
 import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -19,6 +22,7 @@ import com.example.laboralkutxatpv.model.ProductoVendido
 import com.example.laboralkutxatpv.model.Venta
 import com.example.laboralkutxatpv.repository.VentaRepository
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
@@ -311,40 +315,71 @@ class VentanaConfirmacionPago : AppCompatActivity() {
 
         val tvContenidoTicket = dialog.findViewById<TextView>(R.id.tvContenidoTicket)
         val btnCerrarTicket = dialog.findViewById<Button>(R.id.btnCerrarTicket)
+        val btnImprimirTicketReal = dialog.findViewById<Button>(R.id.btnImprimirTicketReal)
 
         // Para formatear en € (o la moneda que corresponda)
         val formatoMoneda = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
 
         val sb = StringBuilder()
+        
+        // Añadir fecha y hora actual
+        val fechaActual = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+        sb.append("FECHA: $fechaActual\n")
+        sb.append("MÉTODO DE PAGO: $metodoPago\n\n")
+        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n")
+        sb.append("DETALLES DE LA COMPRA:\n\n")
 
         // Listar los productos
+        var subtotal = 0.0
         productosSeleccionados?.let { listaProductos ->
             for (producto in listaProductos) {
                 val totalProducto = producto.precio * producto.cantidad
-                sb.append("Producto: ${producto.nombre}\n")
-                sb.append("Cantidad: ${producto.cantidad}\n")
-                sb.append("Precio Unitario: ${formatoMoneda.format(producto.precio)}\n")
-                sb.append("Precio Total: ${formatoMoneda.format(totalProducto)}\n\n")
+                subtotal += totalProducto
+                
+                sb.append("${producto.nombre}\n")
+                sb.append("   ${producto.cantidad} x ${formatoMoneda.format(producto.precio)} = ${formatoMoneda.format(totalProducto)}\n\n")
             }
         }
+        
+        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n")
 
         // Mostrar descripción del descuento si existe
         if (descripcionDescuento != "Ninguno" && montoDescuento > 0.0) {
-            sb.append("Descuento aplicado: $descripcionDescuento\n")
-            sb.append("Monto sin descuento: ${formatoMoneda.format(montoTotal)}\n")
-            sb.append("Descuento: ${formatoMoneda.format(montoDescuento)}\n")
-
-            val precioFinal = montoTotal - montoDescuento
-            sb.append("Precio final: ${formatoMoneda.format(precioFinal)}")
+            sb.append("SUBTOTAL: ${formatoMoneda.format(subtotal)}\n")
+            sb.append("DESCUENTO (${descripcionDescuento}): -${formatoMoneda.format(montoDescuento)}\n\n")
+            sb.append("TOTAL: ${formatoMoneda.format(subtotal - montoDescuento)}\n\n")
         } else {
             // En caso de no tener descuento, simplemente muestra el monto total
-            sb.append("Precio final: ${formatoMoneda.format(montoTotal)}")
+            sb.append("TOTAL: ${formatoMoneda.format(montoTotal)}\n\n")
         }
+        
+        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n")
+        sb.append("¡Gracias por su compra!\n")
+        sb.append("Laboral Kutxa TPV")
 
         tvContenidoTicket.text = sb.toString()
 
         btnCerrarTicket.setOnClickListener {
             dialog.dismiss()
+        }
+        
+        btnImprimirTicketReal.setOnClickListener {
+
+
+            // // ESTO ES PARA QUE VIBRE
+            // // NO SÉ SI FUNCIONA lol
+            // // Lo comento porque con en el emulador no funciona
+            // // Simular impresión
+            // val vibracion = getSystemService(VIBRATOR_SERVICE) as Vibrator
+            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //     vibracion.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+            // } else {
+            //     @Suppress("DEPRECATION")
+            //     vibracion.vibrate(200)
+            // }
+            
+            // Mostrar mensaje de impresión
+            Toast.makeText(this, "Imprimiendo ticket...", Toast.LENGTH_SHORT).show()
         }
 
         dialog.show()
