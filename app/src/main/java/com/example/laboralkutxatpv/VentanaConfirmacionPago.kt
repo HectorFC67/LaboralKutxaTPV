@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laboralkutxatpv.databinding.ActivityVentanaConfirmacionPagoBinding
@@ -31,6 +32,8 @@ class VentanaConfirmacionPago : AppCompatActivity() {
     private var montoTotal: Double = 0.0
     private var metodoPago: String = ""
     private var productosSeleccionados: ArrayList<Producto>? = null
+    private var montoDescuento: Double = 0.0
+    private var descripcionDescuento: String = "Ninguno"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,11 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         
         // Configurar textos e información en la UI
         actualizarUI()
+
+        // Botón "Imprimir Ticket"
+        binding.btnImprimirTicket.setOnClickListener {
+            mostrarPopUpTicket()
+        }
 
         // Botón "Cancelar"
         binding.btnCancelar.setOnClickListener {
@@ -71,17 +79,20 @@ class VentanaConfirmacionPago : AppCompatActivity() {
             }
         }, 500) // 500 ms = 0.5 segundos
     }
-    
+
     private fun obtenerDatosCompra() {
         // Recuperar monto total y método de pago
         montoTotal = intent.getDoubleExtra("montoTotal", 0.0)
         metodoPago = intent.getStringExtra("metodoPago") ?: "No especificado"
-        
-        // Intentar recuperar los productos seleccionados
+
+        // Recuperar el descuento (si se pasó)
+        descripcionDescuento = intent.getStringExtra("descripcionDescuento") ?: "Ninguno"
+        montoDescuento = intent.getDoubleExtra("montoDescuento", 0.0)
+
         @Suppress("UNCHECKED_CAST")
         productosSeleccionados = intent.getSerializableExtra("productos") as? ArrayList<Producto>
     }
-    
+
     private fun registrarVenta() {
         try {
             // Crear lista de productos vendidos
@@ -291,5 +302,51 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         } catch (e: Exception) {
             // Si hay algún error con el sonido, simplemente lo ignoramos
         }
+    }
+
+    private fun mostrarPopUpTicket() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_imprimir_ticket)
+        dialog.setCancelable(true)
+
+        val tvContenidoTicket = dialog.findViewById<TextView>(R.id.tvContenidoTicket)
+        val btnCerrarTicket = dialog.findViewById<Button>(R.id.btnCerrarTicket)
+
+        // Para formatear en € (o la moneda que corresponda)
+        val formatoMoneda = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+
+        val sb = StringBuilder()
+
+        // Listar los productos
+        productosSeleccionados?.let { listaProductos ->
+            for (producto in listaProductos) {
+                val totalProducto = producto.precio * producto.cantidad
+                sb.append("Producto: ${producto.nombre}\n")
+                sb.append("Cantidad: ${producto.cantidad}\n")
+                sb.append("Precio Unitario: ${formatoMoneda.format(producto.precio)}\n")
+                sb.append("Precio Total: ${formatoMoneda.format(totalProducto)}\n\n")
+            }
+        }
+
+        // Mostrar descripción del descuento si existe
+        if (descripcionDescuento != "Ninguno" && montoDescuento > 0.0) {
+            sb.append("Descuento aplicado: $descripcionDescuento\n")
+            sb.append("Monto sin descuento: ${formatoMoneda.format(montoTotal)}\n")
+            sb.append("Descuento: ${formatoMoneda.format(montoDescuento)}\n")
+
+            val precioFinal = montoTotal - montoDescuento
+            sb.append("Precio final: ${formatoMoneda.format(precioFinal)}")
+        } else {
+            // En caso de no tener descuento, simplemente muestra el monto total
+            sb.append("Precio final: ${formatoMoneda.format(montoTotal)}")
+        }
+
+        tvContenidoTicket.text = sb.toString()
+
+        btnCerrarTicket.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <!-- Título o texto de cabecera (opcional) -->
+    <TextView
+        android:id="@+id/tvTituloTicket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detalles del ticket"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- ScrollView que envuelve al TextView con los detalles -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvContenidoTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"/>
+    </ScrollView>
+
+    <!-- Botón para cerrar el diálogo -->
+    <Button
+        android:id="@+id/btnCerrarTicket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar"/>
+</LinearLayout>

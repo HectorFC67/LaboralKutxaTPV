@@ -11,9 +11,6 @@
     tools:context=".VentanaConfirmacionPago">
 
     <!-- Ícono de OK en grande -->
-
-    <!-- Texto con el mensaje de cuántos euros faltan -->
-
     <ImageView
         android:id="@+id/imgOk"
         android:layout_width="214dp"
@@ -25,14 +22,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Texto con el mensaje de cuántos euros faltan -->
     <TextView
         android:id="@+id/tvFaltan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:text="Te faltan 20€ para recibir un cupón"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        android:text="Te faltan 20€ para recibir un cupón"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,9 +47,9 @@
         android:max="100"
         android:progress="80"
         android:progressTint="#4CAF50"
-        app:layout_constraintTop_toBottomOf="@id/tvFaltan"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvFaltan" />
 
     <!-- Texto: "Pago realizado con éxito" -->
     <TextView
@@ -59,10 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:text="Pago realizado con éxito"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:text="Pago realizado con éxito"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,27 +71,41 @@
         android:id="@+id/btnCancelar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="1dp"
         android:text="Cancelar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnContinuar"
+        app:layout_constraintEnd_toStartOf="@id/btnImprimirTicket"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Botón: Imprimir ticket -->
+    <Button
+        android:id="@+id/btnImprimirTicket"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
+        android:text="Imprimir ticket"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnContinuar"
+        app:layout_constraintStart_toEndOf="@id/btnCancelar" />
 
     <!-- Botón: Continuar -->
     <Button
         android:id="@+id/btnContinuar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
         android:text="Continuar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnCancelar" />
+        app:layout_constraintStart_toEndOf="@id/btnImprimirTicket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
