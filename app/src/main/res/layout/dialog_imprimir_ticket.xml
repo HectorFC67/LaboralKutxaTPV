@@ -20,8 +20,8 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@android:drawable/ic_menu_info_details"
-            android:tint="#b41c5b"
-            android:layout_marginEnd="12dp"/>
+            android:layout_marginEnd="12dp"
+            app:tint="#8A1AC1" />
             
         <TextView
             android:id="@+id/tvTituloTicket"
@@ -30,7 +30,7 @@
             android:text="Detalles del Ticket"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#b41c5b"/>
+            android:textColor="#760CB8"/>
     </LinearLayout>
     
     <!-- Línea separadora -->

@@ -326,7 +326,7 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         val fechaActual = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
         sb.append("FECHA: $fechaActual\n")
         sb.append("MÉTODO DE PAGO: $metodoPago\n\n")
-        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n")
+        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n")
         sb.append("DETALLES DE LA COMPRA:\n\n")
 
         // Listar los productos
@@ -370,13 +370,13 @@ class VentanaConfirmacionPago : AppCompatActivity() {
             // // NO SÉ SI FUNCIONA lol
             // // Lo comento porque con en el emulador no funciona
             // // Simular impresión
-            // val vibracion = getSystemService(VIBRATOR_SERVICE) as Vibrator
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //     vibracion.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-            // } else {
-            //     @Suppress("DEPRECATION")
-            //     vibracion.vibrate(200)
-            // }
+            val vibracion = getSystemService(VIBRATOR_SERVICE) as Vibrator
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                 vibracion.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+             } else {
+                 @Suppress("DEPRECATION")
+                 vibracion.vibrate(200)
+             }
             
             // Mostrar mensaje de impresión
             Toast.makeText(this, "Imprimiendo ticket...", Toast.LENGTH_SHORT).show()
