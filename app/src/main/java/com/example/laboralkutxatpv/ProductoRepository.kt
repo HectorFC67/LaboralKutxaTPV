@@ -2,6 +2,7 @@ package com.example.laboralkutxatpv
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -17,6 +18,7 @@ class ProductoRepository private constructor(context: Context) {
     
     // Lista en memoria de productos
     private var productos: MutableList<ProductoCompleto> = mutableListOf()
+    private val productoDao: ProductoDao = AppDatabase.getDatabase(context).productoDao()
     
     init {
         // Cargar productos guardados al iniciar
@@ -42,10 +44,18 @@ class ProductoRepository private constructor(context: Context) {
     /**
      * Obtiene la lista de todos los productos
      */
-    fun obtenerTodosLosProductos(): List<ProductoCompleto> {
-        return productos.toList()
+    suspend fun obtenerTodosLosProductos(): List<ProductoCompleto> {
+        Log.d("TPVDebug", productoDao.obtenerTodosLosProductos().toString())
+        return productoDao.obtenerTodosLosProductosCompletos()
     }
-    
+
+    /**
+     * Convierte la lista de productos a productos simples para la pantalla de compra
+     */
+    fun obtenerProductosParaCompra(): List<Producto> {
+        return productos.map { it.toProducto() }
+    }
+
     /**
      * Obtiene un producto por su ID
      */
@@ -91,13 +101,6 @@ class ProductoRepository private constructor(context: Context) {
             guardarProductos()
         }
         return eliminado
-    }
-    
-    /**
-     * Convierte la lista de productos a productos simples para la pantalla de compra
-     */
-    fun obtenerProductosParaCompra(): List<Producto> {
-        return productos.map { it.toProducto() }
     }
     
     /**

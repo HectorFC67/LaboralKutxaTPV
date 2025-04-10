@@ -74,7 +74,7 @@ class ProductoAdapter(
                     Toast.makeText(
                         binding.root.context,
                         "No hay más unidades disponibles",
-                        Toast.LENGTH_SHORT
+                       Toast.LENGTH_SHORT
                     ).show()
                 }
             }

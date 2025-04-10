@@ -3,15 +3,18 @@ package com.example.laboralkutxatpv
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laboralkutxatpv.databinding.ActivityGestionProductosBinding
 import com.example.laboralkutxatpv.databinding.DialogEditarProductoBinding
+import kotlinx.coroutines.launch
 
 class GestionProductosActivity : AppCompatActivity() {
 
@@ -56,7 +59,9 @@ class GestionProductosActivity : AppCompatActivity() {
         })
 
         // Cargar productos desde el repositorio
-        cargarProductos()
+        lifecycleScope.launch {
+            cargarProductos()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,10 +77,12 @@ class GestionProductosActivity : AppCompatActivity() {
 
     // Función para cargar productos desde el repositorio
     private fun cargarProductos() {
-        listaProductos.clear()
-        listaProductos.addAll(productoRepository.obtenerTodosLosProductos())
-        adapter.notifyDataSetChanged()
-        actualizarVisibilidadNoProductos()
+        lifecycleScope.launch {
+            listaProductos.clear()
+            listaProductos.addAll(productoRepository.obtenerTodosLosProductos())
+            adapter.notifyDataSetChanged()
+            actualizarVisibilidadNoProductos()
+        }
     }
 
     // Función para mostrar el diálogo de nuevo producto

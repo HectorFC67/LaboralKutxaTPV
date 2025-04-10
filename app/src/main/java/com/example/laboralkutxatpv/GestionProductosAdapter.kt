@@ -40,7 +40,7 @@ class GestionProductosAdapter(
             listaCompleta
         } else {
             listaCompleta.filter {
-                it.nombre.contains(query, ignoreCase = true) || 
+                it.nombre.contains(query, ignoreCase = true) ||
                 it.descripcion.contains(query, ignoreCase = true)
             }
         }
