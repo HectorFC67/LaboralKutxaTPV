@@ -9,8 +9,14 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.print.PrintAttributes
+import android.print.PrintDocumentAdapter
+import android.print.PrintJob
+import android.print.PrintManager
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,6 +31,15 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.content.Context
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.app.AlertDialog
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import java.lang.reflect.Method
 
 class VentanaConfirmacionPago : AppCompatActivity() {
 
@@ -366,8 +381,190 @@ class VentanaConfirmacionPago : AppCompatActivity() {
         btnImprimirTicketReal.setOnClickListener {
             // Mostrar mensaje de impresión
             Toast.makeText(this, "Imprimiendo ticket...", Toast.LENGTH_SHORT).show()
+            
+            // Imprimir texto en la impresora térmica PAX A920
+            // Para pruebas, sólo imprimimos "patata"
+            imprimirEnPaxA920("patata")
         }
 
         dialog.show()
+    }
+    
+    private fun imprimirEnPaxA920(texto: String) {
+        // Intentar detectar si estamos en un dispositivo PAX
+        if (esPaxDevice()) {
+            // Estamos en un dispositivo PAX, usar la API nativa
+            imprimirEnDispositivoReal(texto)
+        } else {
+            // No estamos en un dispositivo PAX, simular impresión
+            simularImpresionEnEmulador(texto)
+        }
+    }
+    
+    /**
+     * Verifica si el dispositivo actual es un terminal PAX
+     */
+    private fun esPaxDevice(): Boolean {
+        return try {
+            // Intentar cargar una clase específica de PAX para comprobar si estamos en un dispositivo PAX
+            Class.forName("com.pax.dal.IDAL")
+            true
+        } catch (e: ClassNotFoundException) {
+            false
+        }
+    }
+    
+    /**
+     * Imprime el texto en un dispositivo PAX real usando las APIs nativas
+     */
+    private fun imprimirEnDispositivoReal(texto: String) {
+        try {
+            logImpresion("Intentando imprimir en dispositivo PAX real")
+            
+            // Utilizar reflexión para acceder a las APIs nativas de PAX
+            // sin necesidad de tener las dependencias en tiempo de compilación
+            
+            // Cargar la clase Printer de PAX
+            val dalManagerClass = Class.forName("com.pax.dal.impl.DALManagerImpl")
+            val dalManagerInstance = dalManagerClass.getMethod("getInstance").invoke(null)
+            
+            // Obtener la instancia de la impresora
+            val printerInstance = dalManagerClass.getMethod("getPrinter").invoke(dalManagerInstance)
+            val printerClass = printerInstance.javaClass
+            
+            // Inicializar la impresora
+            invokeMethod(printerClass, printerInstance, "init")
+            
+            // Configurar el tamaño de fuente (por ejemplo 24)
+            val fontSizeMethod = findMethod(printerClass, "setFontSize", Integer.TYPE)
+            fontSizeMethod?.invoke(printerInstance, 24)
+            
+            // Imprimir texto
+            val appendTextMethod = findMethod(printerClass, "appendText", String::class.java) 
+                ?: findMethod(printerClass, "printStr", String::class.java)
+                
+            if (appendTextMethod != null) {
+                appendTextMethod.invoke(printerInstance, texto)
+                // Añadir saltos de línea al final
+                appendTextMethod.invoke(printerInstance, "\n\n\n")
+            } else {
+                logImpresion("No se encontró el método para imprimir texto")
+                throw Exception("No se encontró el método para imprimir texto")
+            }
+            
+            // Ejecutar la impresión
+            val startPrintMethod = findMethod(printerClass, "start") ?: findMethod(printerClass, "startPrinter")
+            startPrintMethod?.invoke(printerInstance)
+            
+            Toast.makeText(this, "Impresión enviada a la TPV", Toast.LENGTH_SHORT).show()
+            logImpresion("Impresión enviada a la TPV: '$texto'")
+            
+        } catch (e: Exception) {
+            logImpresion("Error al imprimir en dispositivo real: ${e.message}")
+            Toast.makeText(this, "Error al imprimir: ${e.message}", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+            
+            // Si hay error, caer en la simulación
+            simularImpresionEnEmulador(texto)
+        }
+    }
+    
+    /**
+     * Ayudante para invocar métodos por reflexión
+     */
+    private fun invokeMethod(clazz: Class<*>, instance: Any, methodName: String, vararg args: Any?) {
+        val method = findMethod(clazz, methodName, *args.map { it?.javaClass ?: Any::class.java }.toTypedArray())
+        method?.invoke(instance, *args)
+    }
+    
+    /**
+     * Encuentra un método por nombre y tipos de parámetros
+     */
+    private fun findMethod(clazz: Class<*>, methodName: String, vararg paramTypes: Class<*>): Method? {
+        return try {
+            if (paramTypes.isEmpty()) {
+                clazz.getMethod(methodName)
+            } else {
+                clazz.getMethod(methodName, *paramTypes)
+            }
+        } catch (e: Exception) {
+            try {
+                // Probar buscando métodos con nombres similares
+                val methods = clazz.methods
+                methods.find { it.name.equals(methodName, ignoreCase = true) && 
+                              it.parameterTypes.size == paramTypes.size }
+            } catch (e2: Exception) {
+                null
+            }
+        }
+    }
+    
+    private fun simularImpresionEnEmulador(texto: String) {
+        try {
+            // Crear un diálogo para simular la impresora
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Simulación de Impresora")
+            
+            // Crear la vista para el diálogo
+            val inflater = LayoutInflater.from(this)
+            val view = inflater.inflate(R.layout.dialog_simulacion_impresora, null)
+            val tvContenidoImpresion = view.findViewById<TextView>(R.id.tvContenidoImpresion)
+            
+            // Configurar el contenido
+            tvContenidoImpresion.text = """
+                ======== TICKET IMPRESO ========
+                
+                $texto
+                
+                ==============================
+                
+                (Simulación de impresión en emulador)
+            """.trimIndent()
+            
+            builder.setView(view)
+            builder.setPositiveButton("Cerrar") { dialog, _ -> dialog.dismiss() }
+            
+            // Registrar en logs
+            logImpresion("Simulación de impresión: '$texto'")
+            
+            // Hacer vibrar el dispositivo para simular la impresora
+            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (vibrator.hasVibrator()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(500)
+                }
+            }
+            
+            // Mostrar el diálogo con una pequeña demora para simular el proceso de impresión
+            Handler(Looper.getMainLooper()).postDelayed({
+                val dialog = builder.create()
+                dialog.show()
+                
+                Toast.makeText(
+                    this,
+                    "Impresión simulada completada",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }, 1000)
+            
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                "Error en simulación de impresión: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
+            
+            logImpresion("Error en simulación: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+    
+    private fun logImpresion(mensaje: String) {
+        // En un entorno real, aquí registrarías los eventos de impresión
+        // en un archivo de log o en una base de datos
+        println("LOG_IMPRESORA: $mensaje")
     }
 }
