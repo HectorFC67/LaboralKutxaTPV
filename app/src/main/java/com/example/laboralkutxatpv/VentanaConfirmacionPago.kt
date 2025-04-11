@@ -391,174 +391,199 @@ class VentanaConfirmacionPago : AppCompatActivity() {
     }
     
     private fun imprimirEnPaxA920(texto: String) {
-        // Intentar detectar si estamos en un dispositivo PAX
-        if (esPaxDevice()) {
-            // Estamos en un dispositivo PAX, usar la API nativa
-            imprimirEnDispositivoReal(texto)
-        } else {
-            // No estamos en un dispositivo PAX, simular impresión
-            simularImpresionEnEmulador(texto)
-        }
+        // Forzar la impresión directa en la TPV PAX sin intentar detectar el dispositivo
+        imprimirDirectamenteEnPax(texto)
     }
     
     /**
-     * Verifica si el dispositivo actual es un terminal PAX
+     * Método que imprime directamente en la máquina PAX utilizando diferentes enfoques
      */
-    private fun esPaxDevice(): Boolean {
+    private fun imprimirDirectamenteEnPax(texto: String) {
+        logImpresion("Intentando imprimir directamente en PAX A920")
+        var exito = false
+        
+        // Intentar con la clase PrinterManager específica de PAX
+        if (!exito) {
+            exito = intentarImprimirConClasePrinterManager(texto)
+        }
+        
+        // Si el primer método falló, intentar con Q2Printer específico de PAX
+        if (!exito) {
+            exito = intentarImprimirConQ2Printer(texto)
+        }
+        
+        // Si los métodos anteriores fallaron, intentar con DALManager
+        if (!exito) {
+            exito = intentarImprimirConDALManager(texto)
+        }
+        
+        // Si todo lo anterior falló, intentar con el método directo de PosApi
+        if (!exito) {
+            exito = intentarImprimirConPosApi(texto)
+        }
+        
+        // Si ninguno funcionó, mostramos un mensaje de error
+        if (!exito) {
+            Toast.makeText(this, "No se pudo imprimir en la TPV PAX", Toast.LENGTH_LONG).show()
+            logImpresion("Todos los métodos de impresión fallaron")
+        }
+    }
+    
+    private fun intentarImprimirConClasePrinterManager(texto: String): Boolean {
         return try {
-            // Intentar cargar una clase específica de PAX para comprobar si estamos en un dispositivo PAX
-            Class.forName("com.pax.dal.IDAL")
+            logImpresion("Intentando imprimir con PrinterManager")
+            
+            // Intentar cargar la clase PrinterManager específica de PAX
+            val printerManagerClass = Class.forName("com.pax.posdk.PrinterManager")
+            val getInstance = printerManagerClass.getMethod("getInstance", Context::class.java)
+            val printerManager = getInstance.invoke(null, applicationContext)
+            
+            // Inicializar impresora
+            val initMethod = printerManagerClass.getMethod("init")
+            initMethod.invoke(printerManager)
+            
+            // Imprimir texto
+            val printTextMethod = printerManagerClass.getMethod("printStr", String::class.java)
+            printTextMethod.invoke(printerManager, texto)
+            
+            // Añadir líneas en blanco
+            printTextMethod.invoke(printerManager, "\n\n\n")
+            
+            // Iniciar impresión
+            val startMethod = printerManagerClass.getMethod("start")
+            startMethod.invoke(printerManager)
+            
+            Toast.makeText(this, "Impresión enviada (PrinterManager)", Toast.LENGTH_SHORT).show()
+            logImpresion("Impresión exitosa con PrinterManager")
             true
-        } catch (e: ClassNotFoundException) {
+            
+        } catch (e: Exception) {
+            logImpresion("Error con PrinterManager: ${e.message}")
+            e.printStackTrace()
             false
         }
     }
     
-    /**
-     * Imprime el texto en un dispositivo PAX real usando las APIs nativas
-     */
-    private fun imprimirEnDispositivoReal(texto: String) {
-        try {
-            logImpresion("Intentando imprimir en dispositivo PAX real")
+    private fun intentarImprimirConQ2Printer(texto: String): Boolean {
+        return try {
+            logImpresion("Intentando imprimir con Q2Printer")
             
-            // Utilizar reflexión para acceder a las APIs nativas de PAX
-            // sin necesidad de tener las dependencias en tiempo de compilación
+            // Intentar cargar la clase Q2Printer específica de PAX
+            val q2PrinterClass = Class.forName("com.paxsz.easylink.api.Q2Printer")
+            val getInstance = q2PrinterClass.getMethod("getInstance")
+            val printer = getInstance.invoke(null)
             
-            // Cargar la clase Printer de PAX
-            val dalManagerClass = Class.forName("com.pax.dal.impl.DALManagerImpl")
-            val dalManagerInstance = dalManagerClass.getMethod("getInstance").invoke(null)
-            
-            // Obtener la instancia de la impresora
-            val printerInstance = dalManagerClass.getMethod("getPrinter").invoke(dalManagerInstance)
-            val printerClass = printerInstance.javaClass
-            
-            // Inicializar la impresora
-            invokeMethod(printerClass, printerInstance, "init")
-            
-            // Configurar el tamaño de fuente (por ejemplo 24)
-            val fontSizeMethod = findMethod(printerClass, "setFontSize", Integer.TYPE)
-            fontSizeMethod?.invoke(printerInstance, 24)
+            // Inicializar impresora
+            val initMethod = q2PrinterClass.getMethod("init")
+            initMethod.invoke(printer)
             
             // Imprimir texto
-            val appendTextMethod = findMethod(printerClass, "appendText", String::class.java) 
-                ?: findMethod(printerClass, "printStr", String::class.java)
-                
-            if (appendTextMethod != null) {
-                appendTextMethod.invoke(printerInstance, texto)
-                // Añadir saltos de línea al final
-                appendTextMethod.invoke(printerInstance, "\n\n\n")
-            } else {
-                logImpresion("No se encontró el método para imprimir texto")
-                throw Exception("No se encontró el método para imprimir texto")
-            }
+            val appendTextMethod = q2PrinterClass.getMethod("appendText", String::class.java)
+            appendTextMethod.invoke(printer, texto)
             
-            // Ejecutar la impresión
-            val startPrintMethod = findMethod(printerClass, "start") ?: findMethod(printerClass, "startPrinter")
-            startPrintMethod?.invoke(printerInstance)
+            // Añadir líneas en blanco
+            appendTextMethod.invoke(printer, "\n\n\n")
             
-            Toast.makeText(this, "Impresión enviada a la TPV", Toast.LENGTH_SHORT).show()
-            logImpresion("Impresión enviada a la TPV: '$texto'")
+            // Iniciar impresión
+            val startPrintMethod = q2PrinterClass.getMethod("startPrint")
+            startPrintMethod.invoke(printer)
+            
+            Toast.makeText(this, "Impresión enviada (Q2Printer)", Toast.LENGTH_SHORT).show()
+            logImpresion("Impresión exitosa con Q2Printer")
+            true
             
         } catch (e: Exception) {
-            logImpresion("Error al imprimir en dispositivo real: ${e.message}")
-            Toast.makeText(this, "Error al imprimir: ${e.message}", Toast.LENGTH_SHORT).show()
+            logImpresion("Error con Q2Printer: ${e.message}")
             e.printStackTrace()
-            
-            // Si hay error, caer en la simulación
-            simularImpresionEnEmulador(texto)
+            false
         }
     }
     
-    /**
-     * Ayudante para invocar métodos por reflexión
-     */
-    private fun invokeMethod(clazz: Class<*>, instance: Any, methodName: String, vararg args: Any?) {
-        val method = findMethod(clazz, methodName, *args.map { it?.javaClass ?: Any::class.java }.toTypedArray())
-        method?.invoke(instance, *args)
-    }
-    
-    /**
-     * Encuentra un método por nombre y tipos de parámetros
-     */
-    private fun findMethod(clazz: Class<*>, methodName: String, vararg paramTypes: Class<*>): Method? {
+    private fun intentarImprimirConDALManager(texto: String): Boolean {
         return try {
-            if (paramTypes.isEmpty()) {
-                clazz.getMethod(methodName)
-            } else {
-                clazz.getMethod(methodName, *paramTypes)
-            }
+            logImpresion("Intentando imprimir con DALManager")
+            
+            // Usar la API DAL de PAX
+            val dalManagerClass = Class.forName("com.pax.dal.impl.DALManagerImpl")
+            val dalInstance = dalManagerClass.getMethod("getInstance").invoke(null)
+            
+            // Obtener la impresora
+            val getPrinter = dalManagerClass.getMethod("getPrinter")
+            val printer = getPrinter.invoke(dalInstance)
+            
+            // Inicializar impresora
+            val initMethod = printer.javaClass.getMethod("init")
+            initMethod.invoke(printer)
+            
+            // Imprimir texto
+            val printStrMethod = printer.javaClass.getMethod("printStr", String::class.java)
+            printStrMethod.invoke(printer, texto)
+            
+            // Avanzar papel
+            val stepMethod = printer.javaClass.getMethod("step", Int::class.java)
+            stepMethod.invoke(printer, 50)
+            
+            // Iniciar impresión
+            val startMethod = printer.javaClass.getMethod("start")
+            startMethod.invoke(printer)
+            
+            Toast.makeText(this, "Impresión enviada (DALManager)", Toast.LENGTH_SHORT).show()
+            logImpresion("Impresión exitosa con DALManager")
+            true
+            
         } catch (e: Exception) {
-            try {
-                // Probar buscando métodos con nombres similares
-                val methods = clazz.methods
-                methods.find { it.name.equals(methodName, ignoreCase = true) && 
-                              it.parameterTypes.size == paramTypes.size }
-            } catch (e2: Exception) {
-                null
-            }
+            logImpresion("Error con DALManager: ${e.message}")
+            e.printStackTrace()
+            false
         }
     }
     
-    private fun simularImpresionEnEmulador(texto: String) {
-        try {
-            // Crear un diálogo para simular la impresora
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Simulación de Impresora")
+    private fun intentarImprimirConPosApi(texto: String): Boolean {
+        return try {
+            logImpresion("Intentando imprimir con PosApi")
             
-            // Crear la vista para el diálogo
-            val inflater = LayoutInflater.from(this)
-            val view = inflater.inflate(R.layout.dialog_simulacion_impresora, null)
-            val tvContenidoImpresion = view.findViewById<TextView>(R.id.tvContenidoImpresion)
+            // Intentar el método más directo usando PosApi
+            val posApiClass = Class.forName("com.pax.posapi.PosApi")
+            val printerOpen = posApiClass.getMethod("printerOpen")
+            printerOpen.invoke(null)
             
-            // Configurar el contenido
-            tvContenidoImpresion.text = """
-                ======== TICKET IMPRESO ========
-                
-                $texto
-                
-                ==============================
-                
-                (Simulación de impresión en emulador)
-            """.trimIndent()
+            // Imprimir texto
+            val printString = posApiClass.getMethod("printString", String::class.java)
+            printString.invoke(null, texto)
             
-            builder.setView(view)
-            builder.setPositiveButton("Cerrar") { dialog, _ -> dialog.dismiss() }
+            // Avanzar papel
+            val printFeed = posApiClass.getMethod("printerFeed", Int::class.java)
+            printFeed.invoke(null, 3) // avanzar 3 líneas
             
-            // Registrar en logs
-            logImpresion("Simulación de impresión: '$texto'")
+            // Cortar papel o comenzar impresión
+            val printerStart = posApiClass.getMethod("printerStart")
+            printerStart.invoke(null)
             
-            // Hacer vibrar el dispositivo para simular la impresora
-            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (vibrator.hasVibrator()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator.vibrate(500)
-                }
-            }
+            // Cerrar impresora
+            val printerClose = posApiClass.getMethod("printerClose")
+            printerClose.invoke(null)
             
-            // Mostrar el diálogo con una pequeña demora para simular el proceso de impresión
-            Handler(Looper.getMainLooper()).postDelayed({
-                val dialog = builder.create()
-                dialog.show()
-                
-                Toast.makeText(
-                    this,
-                    "Impresión simulada completada",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }, 1000)
+            Toast.makeText(this, "Impresión enviada (PosApi)", Toast.LENGTH_SHORT).show()
+            logImpresion("Impresión exitosa con PosApi")
+            true
             
         } catch (e: Exception) {
-            Toast.makeText(
-                this,
-                "Error en simulación de impresión: ${e.message}",
-                Toast.LENGTH_LONG
-            ).show()
-            
-            logImpresion("Error en simulación: ${e.message}")
+            logImpresion("Error con PosApi: ${e.message}")
             e.printStackTrace()
+            try {
+                // Intento alternativo: usar método de bajo nivel con comandos directos
+                val process = Runtime.getRuntime().exec("echo -e \"$texto\\n\\n\\n\" > /dev/ttyGS0")
+                val exitValue = process.waitFor()
+                if (exitValue == 0) {
+                    Toast.makeText(this, "Impresión enviada (comando directo)", Toast.LENGTH_SHORT).show()
+                    logImpresion("Impresión exitosa con comando directo")
+                    return true
+                }
+            } catch (e2: Exception) {
+                logImpresion("Error con comando directo: ${e2.message}")
+                e2.printStackTrace()
+            }
+            false
         }
     }
     
