@@ -19,7 +19,10 @@ interface ProductoDao {
 
     // Actualizar un producto existente
     @Update
-    suspend fun actualizarProducto(producto: ProductoCompleto)
+    suspend fun actualizarProducto(producto: ProductoCompleto): Int
+
+    @Query("DELETE FROM producto WHERE id = :id")
+    suspend fun eliminarProductoPorId(id: Long): Int
 
     // Eliminar un producto
     @Delete
@@ -31,6 +34,9 @@ interface ProductoDao {
 
     @Query("SELECT * FROM Producto")
     suspend fun obtenerTodosLosProductos(): List<Producto>
+
+    @Query("SELECT MAX(id) FROM producto")
+    suspend fun obtenerUltimoId(): Long?
 
     // Obtener un producto por su ID
     @Query("SELECT * FROM Producto WHERE ID = :id")

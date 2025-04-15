@@ -25,14 +25,27 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "TPV.db"
-                )
-                    .createFromAsset("TPV.db") // Asegúrate de que esto apunte al archivo correcto en assets
-                    .fallbackToDestructiveMigration()
+
+                val dbFile = context.getDatabasePath("TPV.db")
+
+                val builder = if (dbFile.exists()) {
+                    Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "TPV.db"
+                    )
+                } else {
+                    Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "TPV.db"
+                    ).createFromAsset("TPV.db")
+                }
+
+                val instance = builder
+                    .fallbackToDestructiveMigration() // Opcional: cuidado con este
                     .build()
+
                 INSTANCE = instance
                 instance
             }
@@ -65,5 +78,20 @@ abstract class AppDatabase : RoomDatabase() {
                 return false
             }
         }
+
+        fun exportarBaseDeDatosParaAssets(context: Context) {
+            try {
+                val dbFile = context.getDatabasePath("TPV.db")
+                val destino = File(context.getExternalFilesDir(null), "TPV_para_assets.db")
+
+                dbFile.copyTo(destino, overwrite = true)
+
+                Log.d("TPVDebug", "Base exportada para assets en: ${destino.absolutePath}")
+                // Luego puedes copiar ese archivo a tu proyecto en la carpeta assets manualmente
+            } catch (e: Exception) {
+                Log.e("TPVDebug", "Error al exportar DB: ${e.message}")
+            }
+        }
+
     }
 }

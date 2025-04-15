@@ -121,9 +121,12 @@ class GestionProductosActivity : AppCompatActivity() {
                     stock = stock,
                     descripcion = descripcion
                 )
-                
+
+                var id = 0L;
                 // Añadir al repositorio
-                val id = productoRepository.agregarProducto(nuevoProducto)
+                lifecycleScope.launch {
+                    id = productoRepository.agregarProducto(nuevoProducto)
+                }
                 val productoConId = nuevoProducto.copy(id = id)
                 
                 // Añadir a la lista local
@@ -187,8 +190,10 @@ class GestionProductosActivity : AppCompatActivity() {
                 )
                 
                 // Actualizar en el repositorio
-                productoRepository.actualizarProducto(productoActualizado)
-                
+                lifecycleScope.launch {
+                    productoRepository.actualizarProducto(productoActualizado)
+                }
+
                 // Actualizar en la lista local
                 val position = listaProductos.indexOfFirst { it.id == producto.id }
                 if (position != -1) {
@@ -213,8 +218,9 @@ class GestionProductosActivity : AppCompatActivity() {
             .setMessage("¿Está seguro de que desea eliminar ${producto.nombre}?")
             .setPositiveButton("Eliminar") { _, _ ->
                 // Eliminar del repositorio
-                productoRepository.eliminarProducto(producto.id)
-                
+                lifecycleScope.launch {
+                    productoRepository.eliminarProducto(producto.id)
+                }
                 // Eliminar de la lista local
                 val position = listaProductos.indexOfFirst { it.id == producto.id }
                 if (position != -1) {

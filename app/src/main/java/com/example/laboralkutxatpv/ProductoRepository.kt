@@ -49,6 +49,32 @@ class ProductoRepository private constructor(context: Context) {
         return productoDao.obtenerTodosLosProductosCompletos()
     }
 
+    suspend fun agregarProducto(producto: ProductoCompleto) : Long{
+        val ultimoId = productoDao.obtenerUltimoId() ?: 0
+        val productoConId = producto.copy(id = ultimoId + 1)
+
+        Log.d("TPVDebug", "Agregando producto: $productoConId")
+
+        productoDao.insertarProducto(productoConId)
+
+        return productoConId.id
+    }
+
+    suspend fun eliminarProducto(id: Long): Boolean {
+        val filasAfectadas = productoDao.eliminarProductoPorId(id)
+
+        Log.d("TPVDebug", "Eliminado producto con ID: $id - Éxito: ${filasAfectadas > 0}")
+
+        return filasAfectadas > 0
+    }
+
+    suspend fun actualizarProducto(producto: ProductoCompleto): Boolean {
+        val filasAfectadas = productoDao.actualizarProducto(producto)
+
+        Log.d("TPVDebug", "Actualizando producto: $producto - Éxito: ${filasAfectadas > 0}")
+
+        return filasAfectadas > 0
+    }
     /**
      * Convierte la lista de productos a productos simples para la pantalla de compra
      */
@@ -66,42 +92,42 @@ class ProductoRepository private constructor(context: Context) {
     /**
      * Añade un nuevo producto
      */
-    fun agregarProducto(producto: ProductoCompleto): Long {
+    //fun agregarProducto(producto: ProductoCompleto): Long {
         // Si el ID es 0, generamos uno nuevo
-        val productoConId = if (producto.id == 0L) {
-            producto.copy(id = generarNuevoId())
-        } else {
-            producto
-        }
-        
-        productos.add(productoConId)
-        guardarProductos()
-        return productoConId.id
-    }
+    //    val productoConId = if (producto.id == 0L) {
+    //       producto.copy(id = generarNuevoId())
+    //    } else {
+    //        producto
+    //    }
+
+    //    productos.add(productoConId)
+    //    guardarProductos()
+    //    return productoConId.id
+    //}
     
     /**
      * Actualiza un producto existente
      */
-    fun actualizarProducto(producto: ProductoCompleto): Boolean {
-        val index = productos.indexOfFirst { it.id == producto.id }
-        if (index != -1) {
-            productos[index] = producto
-            guardarProductos()
-            return true
-        }
-        return false
-    }
+    //fun actualizarProducto(producto: ProductoCompleto): Boolean {
+    //    val index = productos.indexOfFirst { it.id == producto.id }
+    //    if (index != -1) {
+    //        productos[index] = producto
+    //        guardarProductos()
+    //        return true
+    //    }
+    //    return false
+    //}
     
     /**
      * Elimina un producto
      */
-    fun eliminarProducto(id: Long): Boolean {
-        val eliminado = productos.removeIf { it.id == id }
-        if (eliminado) {
-            guardarProductos()
-        }
-        return eliminado
-    }
+    //fun eliminarProducto(id: Long): Boolean {
+    //    val eliminado = productos.removeIf { it.id == id }
+    //    if (eliminado) {
+    //        guardarProductos()
+    //    }
+    //    return eliminado
+    //}
     
     /**
      * Guardar productos en SharedPreferences
